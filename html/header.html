@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="container-fluid" style="padding:0px">
+
+    <header id="pageHeader" class="row">
+        <h1 class="col-2">news.ly</h1>
+
+        <div class="col">
+            <div class="dropdown">
+                <span>HOME <i class="fas fa-angle-down"></i></span>
+                <div class="dropdown-content">
+                    <p>Home</p>
+                    <p>All Topics</p>
+                    <p>#Portugal</p>
+                    <p>#Corona</p>
+                </div>
+            </div>
+        </div>
+
+        <form id="searchBar" class="col-2" method="post" action="">
+            <input type="text" name="search" placeholder="Search" />
+        </form>
+
+        <div class="col-2">
+            <div class="dropdown">
+                <span>Ambrosio <i class="fas fa-angle-down"></i></span>
+                <div class="dropdown-content">
+                    <p>Profile</p>
+                    <p>Settings</p>
+                    <p>Log Out</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <section id="secondPageHeader" class="row" style="margin:1em">
+        <h1 class="col-sm">news.ly</h1>
+        <select name="pageOptions" class="col-sm">
+            <option value="home" selected>Home</option>
+            <option value="allTopics">All Topics</option>
+            <option value="portugal">#Portugal</option>
+            <option value="corona">#Corona</option>
+        </select>
+
+        <form id="searchBar" class="col-sm" method="post" action="">
+            <input type="text" name="search" placeholder="Search" />
+        </form>
+
+        <select name="profileOptions" class="col-sm">
+            <option value="profile" selected>Profile</option>
+            <option value="settings">Settings</option>
+            <option value="logout">Log Out</option>
+        </select>
+
+    </section>
+
+</body>
+</html>
