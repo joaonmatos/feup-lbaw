@@ -3,7 +3,7 @@ function Navbar($user)
 {
 ?>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <a href="#" class="navbar-brand">news.ly</a>
+        <a href="#" class="navbar-brand lead">news.ly</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,8 +26,8 @@ function Navbar($user)
 }
 function SessionButtons()
 { ?>
-<button class="btn btn-outline-light mx-md-2">Sign Up</button>
-<button class="btn btn-light mx-md-2 ">Log In</button>
+    <button class="btn btn-outline-light mx-md-2">Sign Up</button>
+    <button class="btn btn-light mx-md-2 ">Log In</button>
 <?php }
 function NavMenu($user)
 { ?>
@@ -72,7 +72,7 @@ function SearchForm()
 { ?>
     <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
     </form>
 <?php
 }
