@@ -1,100 +1,87 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Profile</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/styles/theme.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </head>
-<body class="container-fluid" style="padding:0px">
 
-    <header id="pageHeader" class="row">
-        <h1 class="col-2">news.ly</h1>
+<body>
 
-        <div class="col">
-            <div class="dropdown">
-                <span>HOME <i class="fas fa-angle-down"></i></span>
-                <div class="dropdown-content">
-                    <p>Home</p>
-                    <p>All Topics</p>
-                    <p>#Portugal</p>
-                    <p>#Corona</p>
+    <section id="userProfile" class="container-fluid px-5 mt-4 mb-4 ">
+        <div class="d-flex justify-content-between">
+            <div class="d-inline-block mr-5">
+                <div class="container-fluid">
+                    <h3 class="display-3">Ambrosio</h3>
+                </div>
+            </div>
+
+            <div class="col d-inline-block justify-content-end ml-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm d-inline-block" mr-2>42 followers</div>
+                        <div class="col-sm d-inline-block">2 following</div>
+                    </div>
+                </div>
+                <div class="container mt-1">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary text-light">Follow</button>
+
+                    </div>
                 </div>
             </div>
         </div>
 
-        <form id="searchBar" class="col-2" method="post" action="">
-            <input type="text" name="search" placeholder="Search" />
-        </form>
+        <ul class="nav nav-pills mt-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="profile-posts" data-toggle="pill" href="#profilePosts" role="tab"
+                    aria-controls="profilePosts" aria-selected="true">Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-comments" data-toggle="pill" href="#profileComments" role="tab"
+                    aria-controls="profileComments" aria-selected="false">Comments</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="profilePosts" role="tabpanel" aria-labelledby="profile-posts">
+                <div class="card card-body">
+                    This is a post!
+                </div>
+                <div class="card card-body">
+                    This is another post!
+                </div>
+            </div>
 
-        <div class="col-2">
-            <div class="dropdown">
-                <span>Ambrosio <i class="fas fa-angle-down"></i></span>
-                <div class="dropdown-content">
-                    <p>Profile</p>
-                    <p>Settings</p>
-                    <p>Log Out</p>
+            <div class="tab-pane fade" id="profileComments" role="tabpanel" aria-labelledby="profile-comments">
+                <div class="card card-body">
+                    <div class="d-inline-block">
+                        <a class="card-subtitle mb-2" href="#">Ambrosio</a> <i class="far fa-clock"> 2 days ago</i>
+                    </div>
+                    Interesting.
+                </div>
+                <div class="card card-body">
+                    <div class="d-inline-block">
+                        <a class="card-subtitle mb-2" href="#">Ambrosio</a> <i class="far fa-clock"> 6 hours ago</i>
+                    </div>
+                    Wow.
                 </div>
             </div>
         </div>
-    </header>
-
-
-
-    <section id="secondPageHeader" class="row" style="margin:1em">
-        <h1 class="col-sm">news.ly</h1>
-        <select name="pageOptions" class="col-sm">
-            <option value="home" selected>Home</option>
-            <option value="allTopics">All Topics</option>
-            <option value="portugal">#Portugal</option>
-            <option value="corona">#Corona</option>
-        </select>
-
-        <form id="searchBar" class="col-sm" method="post" action="">
-            <input type="text" name="search" placeholder="Search" />
-        </form>
-
-        <select name="profileOptions" class="col-sm">
-            <option value="profile" selected>Profile</option>
-            <option value="settings">Settings</option>
-            <option value="logout">Log Out</option>
-        </select>
-
-    </section>
-
-
-    
-    <!--
-    <section>
-
-        <div class="row justify-content-end" style="margin: 10px 0px">
-            <div class="col">
-                <img class="img-thumbnail" src="C:/Users/joaom/Desktop/Curso/LBAW/ginger.jpeg" alt="overkill" style="height:100px" />
-            </div>
-            <div class="col-sm">
-                <h2 class="col-sm">Ambrosio</h2>
-                <p>32 followers - 2 following</p>
-            </div>
-            <div class="col-sm">
-                <button style="padding:10px">Follow</button>
-            </div>
-        </div>
-
-        <div class="row justify-content-start">
-            <p class="col-2">Posts</p>
-            <p class="col-2">Comments</p>
-        </div>
-
-        <section id="posts">
-            <article><p>This is an article</p></article>
-        </section>
-
 
 
     </section>
-      -->
 
 </body>
+
 </html>
