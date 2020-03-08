@@ -26,5 +26,19 @@ function Head($page_title) { ?>
 <?php
 function Foot() { ?>
 </body>
+    <footer class="my-5 pt-5 text-muted text-center text-small border-top">
+        <p class="mb-1">&copy;2020 news.ly</p>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="#">Privacy</a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#">Terms</a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#">Support</a>
+            </li>
+        </ul>
+    </footer>
 </html>
 <?php } ?>
