@@ -30,10 +30,10 @@ function Foot() { ?>
         <p class="mb-1">&copy;2020 news.ly</p>
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#">Privacy</a>
+                <a href="#">Privacy Policy</a>
             </li>
             <li class="list-inline-item">
-                <a href="#">Terms</a>
+                <a href="#">Terms of Use</a>
             </li>
             <li class="list-inline-item">
                 <a href="#">Support</a>
