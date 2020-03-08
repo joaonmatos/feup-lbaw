@@ -5,7 +5,7 @@ include_once("components/navbar.php");
 function NewsPage($img_url, $title, $user_name, $posted_time, $tags, $comments)
 { ?>
 
-    <div class="container-lg my-4">
+    <main class="container-lg my-4">
         <div class="d-flex justify-content-center mb-3">
             <img src=<?= $img_url ?> class="img-fluid mb-2 w-50" alt="New's Image">
         </div>
@@ -63,23 +63,23 @@ function NewsPage($img_url, $title, $user_name, $posted_time, $tags, $comments)
 
             </div>
         </div>
-    </div>
+    </main>
 <?php }
 
 function draw_comment($comment)
 { ?>
     <div class="card card-body">
         <div class="d-inline-block mb-2">
-                <small class="mx-1">
-                    <a href="#">
-                        <i class="fas fa-user mr-1"></i>
-                        <?= $comment[0] ?>
-                    </a>
-                </small>
-                <small class="text-muted">
-                    <i class="fas fa-clock mx-1"></i>
-                    <?= $comment[1] ?> ago
-                </small>
+            <small class="mx-1">
+                <a href="#">
+                    <i class="fas fa-user mr-1"></i>
+                    <?= $comment[0] ?>
+                </a>
+            </small>
+            <small class="text-muted">
+                <i class="fas fa-clock mx-1"></i>
+                <?= $comment[1] ?> ago
+            </small>
         </div>
         <?= $comment[2] ?>
         <div class="d-flex justify-content-end">

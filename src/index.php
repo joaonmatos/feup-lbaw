@@ -5,7 +5,7 @@ include_once("components/feed.php");
 
 function Welcome()
 { ?>
-    <div class="jumbotron text-center bg-white border-bottom border-primary" id="about">
+    <aside class="jumbotron text-center bg-white border-bottom border-primary" id="about">
         <p class="display-3 display-md-2">Welcome to news.ly</h1>
             <p class="lead">news.ly is the next-generation content aggregation platform.</p>
             <div class="container">
@@ -13,7 +13,7 @@ function Welcome()
                 <a href="#"><button class="btn btn-outline-primary mx-2">Sign Up</button></a>
                 <a href="#"><button class="btn btn-primary mx-2 text-light">Sign In</button></a>
             </div>
-    </div>
+    </aside>
 <?php
 }
 Head("Home - news.ly", [], []);
