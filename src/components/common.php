@@ -25,7 +25,6 @@ function Head($page_title) { ?>
 <?php } ?>
 <?php
 function Foot() { ?>
-</body>
     <footer class="my-5 pt-5 text-muted text-center text-small border-top">
         <p class="mb-1">&copy;2020 news.ly</p>
         <ul class="list-inline">
@@ -40,5 +39,6 @@ function Foot() { ?>
             </li>
         </ul>
     </footer>
+    </body>
 </html>
 <?php } ?>
