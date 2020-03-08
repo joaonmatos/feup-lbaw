@@ -3,7 +3,7 @@ include_once("card.php");
 function Feed($title, $page_no, $next_page_exists)
 {
 ?>
-    <div class="container container-md my-4" id="feed">
+    <main class="container container-md my-4" id="feed">
         <header class="container d-flex mb-3 align-items-center">
             <h1 class="h3 text-primary d-inline-block flex-grow-1" id=feed-title>
                 <?= $title ?>
@@ -37,7 +37,7 @@ function Feed($title, $page_no, $next_page_exists)
                 <i class="fas fa-angle-right"></i>
             </a>
         </footer>
-    </div>
+    </main>
 <?php
 }
 ?>
