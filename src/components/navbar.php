@@ -1,5 +1,5 @@
 <?php
-function Navbar($user)
+function Navbar($user, $page)
 {
 ?>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -10,7 +10,7 @@ function Navbar($user)
 
         <div class="collapse navbar-collapse" id="navbar-content">
             <div class="navbar-nav mr-auto">
-                <?php NavMenu($user); ?>
+                <?php NavMenu($user, $page); ?>
             </div>
             <?php
             SearchForm();
@@ -29,11 +29,11 @@ function SessionButtons()
     <button class="btn btn-outline-light mx-md-2">Sign Up</button>
     <button class="btn btn-light mx-md-2 ">Log In</button>
 <?php }
-function NavMenu($user)
+function NavMenu($user, $page)
 { ?>
     <div class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-            #topic
+            <?= $page ?>
         </a>
         <div class="dropdown-menu">
             <span class="dropdown-item text-muted mx-2">Navigation</span>

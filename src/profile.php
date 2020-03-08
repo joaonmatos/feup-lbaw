@@ -81,11 +81,11 @@ function DrawComment($comment)
 
 
 Head("Profile");
-Navbar("ambrosio");
+Navbar("ambrosio", "@Ringo");
 DrawProfile("ambrosio", "Ringo", "100", "3", false, 
 [
-    ["Ringo", "How to drum", "Want to learn how to play drums like a Beatle?", "10 minutes", "10 minutes", "", "500", ["Music", "The Beatles"], "9999"],
-    ["Ringo", "Global warming", "We are all going to die!", "2 days", "2 days", "", "10", ["Earth", "Science"], "666"]
+    ["Ringo", "How to drum", "Want to learn how to play drums like a Beatle?", "10 minutes", "ringo.com", 500, ["music", "thebeatles"], 9999, ""],
+    ["Ringo", "Global warming", "We are all going to die!", "2 days", "ringo.com", 10, ["earth", "science"], 666, ""]
 ],
 [
     ["Ringo", "3 hours ago", "ayy lmao"]
