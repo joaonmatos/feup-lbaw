@@ -16,7 +16,7 @@ function Welcome()
     </div>
 <?php
 }
-Head("Home - news.ly");
+Head("Home - news.ly", [], []);
 Navbar(null, "Home");
 Welcome();
 Feed("Popular Stories", 1, true);

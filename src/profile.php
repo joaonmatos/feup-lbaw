@@ -3,22 +3,19 @@ include_once("components/common.php");
 include_once("components/navbar.php");
 include_once("components/card.php");
 
-function DrawProfile($session_user, $profile_username, $n_followers, $n_following, $isFollowing, $posts, $comments) { ?> 
+function draw_profile($session_user, $profile_username, $n_followers, $n_following, $isFollowing, $posts, $comments) { ?> 
 
-    <section id="userProfile" class="container-fluid px-5 mt-4 mb-4 ">
+    <section id="userProfile" class="container mt-4 mb-4 ">
         <div class="d-flex justify-content-between">
-            <div class="d-inline-block mr-5">
-                <div class="container-fluid">
-                    <h3 class="display-3"><?= $profile_username ?></h3>
-                </div>
+            <div class="d-inline-block">
+                <h3 class="display-3"><?= $profile_username ?></h3>
             </div>
 
             <div class="col-5 d-inline-block">
-                
-                    <div class="d-flex">
-                        <div class="mr-4"><?= $n_followers ?> followers</div>
-                        <div><?= $n_following ?> following</div>
-                    </div>
+                <div class="d-flex">
+					<div class="mr-4"><?= $n_followers ?> followers</div>
+                    <div><?= $n_following ?> following</div>
+                </div>
                 <?php if(strcmp($session_user, $profile_username) !== 0) { ?>
                     <div class="container mt-1">
                         <div class="row">
@@ -54,7 +51,7 @@ function DrawProfile($session_user, $profile_username, $n_followers, $n_followin
 
             <div class="tab-pane fade" id="profileComments" role="tabpanel" aria-labelledby="profile-comments">
                 <?php for ($i = 0; $i < count($comments); $i++) {
-                    DrawComment($comments[$i]);
+                    draw_comment($comments[$i]);
                 } ?>
 
             </div>
@@ -65,7 +62,7 @@ function DrawProfile($session_user, $profile_username, $n_followers, $n_followin
 
 <?php } 
 
-function DrawComment($comment)
+function draw_comment($comment)
 { ?>
     <div class="card card-body">
         <div class="d-inline-block small mb-2">
@@ -80,9 +77,9 @@ function DrawComment($comment)
 
 
 
-Head("Profile");
+Head("Ringo's Profile - news.ly", [], []);
 Navbar("ambrosio", "@Ringo");
-DrawProfile("ambrosio", "Ringo", "100", "3", false, 
+draw_profile("ambrosio", "Ringo", "100", "3", false, 
 [
     ["Ringo", "How to drum", "Want to learn how to play drums like a Beatle?", "10 minutes", "ringo.com", 500, ["music", "thebeatles"], 9999, ""],
     ["Ringo", "Global warming", "We are all going to die!", "2 days", "ringo.com", 10, ["earth", "science"], 666, ""]
