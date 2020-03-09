@@ -66,11 +66,11 @@ function draw_comment($comment)
 { ?>
     <div class="card card-body">
         <div class="d-inline-block small mb-2">
-            <a class="card-subtitle mb-2" href="#"><?= $comment[0] ?></a> <i class="far fa-clock"> <?= $comment[1] ?></i>
+            <a class="card-subtitle mb-2" href="/profile.php"><?= $comment[0] ?></a> <i class="far fa-clock"> <?= $comment[1] ?></i>
         </div>
         <?= $comment[2] ?>
         <div class="d-flex justify-content-end">
-            <a href="#">Reply</a>
+            <button class="btn btn-link">Reply</a>
         </div>
     </div>
 <?php }

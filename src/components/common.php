@@ -39,13 +39,13 @@ function Head($page_title, $stylesheets, $scripts)
             <p class="mb-1">&copy;2020 news.ly</p>
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="#">Privacy Policy</a>
+                    <a href="/privacy.php">Privacy Policy</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#">Terms of Use</a>
+                    <a href="/terms-of-use.php">Terms of Use</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#">Support</a>
+                    <a href="/support.php">Support</a>
                 </li>
             </ul>
         </footer>
