@@ -10,8 +10,10 @@ body {
 body {
     display: -ms-flexbox;
     display: flex;
+    flex-direction: column;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
 }
@@ -39,13 +41,13 @@ body {
     z-index: 2;
 }
 
-.form-signin input[type="firstInputForm"] {
+.form-signin input.firstInputForm {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="middleInputForm"] {
+.form-signin input.middleInputForm {
     margin-bottom: -1px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -53,7 +55,7 @@ body {
     border-bottom-right-radius: 0;
 }
 
-.form-signin input[type="lastInputForm"] {
+.form-signin input.lastInputForm {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
