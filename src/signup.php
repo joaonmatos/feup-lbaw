@@ -14,17 +14,17 @@ function Signup() { ?>
         </div>
 
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="firstInputForm" id="inputEmail" class="form-control" placeholder="Email address" required=""
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control firstInputForm" placeholder="Email address" required=""
             autofocus="">
         <label for="inputUsername" class="sr-only">Username</label>
-        <input type="middleInputForm" id="inputUsername " class="form-control " placeholder="Username " required=" "
+        <input type="text" name="inputUsername" id="inputUsername" class="form-control middleInputForm" placeholder="Username " required=" "
             autofocus=" ">
 
         <label for="inputPassword" class="sr-only ">password</label>
-        <input type="middleInputForm" id="inputPassword " class="form-control " placeholder="Password " required=" ">
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control middleInputForm" placeholder="Password " required=" ">
 
         <label for="confirmPassword" class="sr-only ">Confirm password</label>
-        <input type="lastInputForm" id="confirmPassword " class="form-control " placeholder="Confirm Password "
+        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control lastInputForm" placeholder="Confirm Password "
             required=" ">
 
         <p class="text-center">
