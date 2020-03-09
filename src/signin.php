@@ -5,7 +5,9 @@ function Signin()
 { ?>
     <main class="text-center">
         <form class="form-signin text-center">
-            <h1 class="display-3 mb-3">news.ly</h1>
+            <h1 class="display-3 mb-3">
+                <a href="/" class="text-dark text-decoration-none">news.ly</a>
+            </h1>
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" name="inputEmail" id="inputEmail" class="form-control firstInputForm" placeholder="Email address" required="" autofocus="">
             <label for="inputPassword" class="sr-only">Password</label>
@@ -14,8 +16,8 @@ function Signin()
         </form>
         <div class="text-center mt-2 d-flex flex-column">
             <!-- Change these hrefs after creating the subpages -->
-            <a href="#">Don't have an account?</a>
-            <a href="#">Forgot your password?</a>
+            <a href="/signup.php">Don't have an account?</a>
+            <a href="/reset-password.php">Forgot your password?</a>
         </div>
     </main>
 <?php }

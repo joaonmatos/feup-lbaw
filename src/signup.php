@@ -5,9 +5,9 @@ function Signup()
 { ?>
 
     <form class="form-signin text-center">
-
-
-        <h1 class="display-3 mb-3">news.ly</h1>
+        <h1 class="display-3 mb-3">
+            <a href="/" class="text-dark text-decoration-none">news.ly</a>
+        </h1>
         <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>  Sign up with Facebook</a>
         <div class="login-or">
             <hr class="hr-or">
@@ -26,7 +26,7 @@ function Signup()
         <input type="password" name="confirmPassword" id="confirmPassword" class="form-control lastInputForm" placeholder="Confirm Password " required=" ">
 
         <!-- Add ref to terms of use here -->
-        <p class="terms-of-use">By signing up you accept our <a href="#">Terms of Use</a>.
+        <p class="terms-of-use">By signing up you accept our <a href="/terms-of-use.php">Terms of Use</a>.
         </p>
         <button class="btn btn-lg btn-primary btn-block " type="submit ">Sign up</button>
 
@@ -36,7 +36,7 @@ function Signup()
 
     <div class="text-center mt-2 ">
         <!-- Change these hrefs after creating the subpages -->
-        <a href="/users/sign_in ">Already have an account?</a>
+        <a href="/signin.php ">Already have an account?</a>
 
     </div>
 

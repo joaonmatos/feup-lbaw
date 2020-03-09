@@ -3,7 +3,7 @@ function Navbar($user, $page)
 {
 ?>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <a href="#" class="navbar-brand lead">news.ly</a>
+        <a href="/" class="navbar-brand lead">news.ly</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,8 +26,8 @@ function Navbar($user, $page)
 }
 function SessionButtons()
 { ?>
-    <button class="btn btn-outline-light mx-md-2">Sign Up</button>
-    <button class="btn btn-light mx-md-2 ">Log In</button>
+    <a class="btn btn-outline-light mx-md-2" href="/signup.php">Sign Up</a>
+    <a class="btn btn-light mx-md-2" href="/signin.php">Sign In</a>
 <?php }
 function NavMenu($user, $page)
 { ?>
@@ -41,14 +41,14 @@ function NavMenu($user, $page)
                 <input class="form-control border-secondary" type="text" placeholder="Go to topic">
                 <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-angle-right"></i></button>
             </form>
-            <a class="dropdown-item" href="#"><i class="fas fa-home mx-2 text-muted"></i>Home</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-globe mx-2 text-muted"></i>Global Feed</a>
+            <a class="dropdown-item" href="/"><i class="fas fa-home mx-2 text-muted"></i>Home</a>
+            <a class="dropdown-item" href="/all.php"><i class="fas fa-globe mx-2 text-muted"></i>Global Feed</a>
             <div class="dropdown-divider"></div>
             <span class="dropdown-item text-muted mx-2"><?= $user === null ? "Recommended" : "My" ?> Topics</span>
-            <a class="dropdown-item" href="#"><i class="fas fa-hashtag mx-2 text-muted"></i>topic1</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-hashtag mx-2 text-muted"></i>topic2</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-hashtag mx-2 text-muted"></i>topic3</a>
-            <a href="#" class="dropdown-item text-muted"><i class="fas fa-ellipsis-h mx-2"></i>See All</a>
+            <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic1</a>
+            <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic2</a>
+            <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic3</a>
+            <a href="/manage-topics.php" class="dropdown-item text-muted"><i class="fas fa-ellipsis-h mx-2"></i>See All</a>
         </div>
     </div>
 <?php
@@ -60,10 +60,10 @@ function UserMenu($name)
             <?= $name ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#"><i class="fas fa-user mx-2"></i>Profile</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-cog mx-2"></i>Settings</a>
+            <a class="dropdown-item" href="/profile.php"><i class="fas fa-user mx-2"></i>Profile</a>
+            <a class="dropdown-item" href="/settings.php"><i class="fas fa-cog mx-2"></i>Settings</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt mx-2"></i>Log Out</a>
+            <a class="dropdown-item text-danger" href=""><i class="fas fa-sign-out-alt mx-2"></i>Log Out</a>
         </div>
     </div>
 <?php

@@ -14,7 +14,7 @@ function Card($user_name, $title, $description, $posted_time, $url_source, $comm
                         <div class="d-flex flex-column">
                             <div class="container text-right my-2">
                                 <small class="mx-2">
-                                    <a href="#" class="card-link">
+                                    <a href="/profile.php" class="card-link">
                                         <i class="fas fa-user mx-1"></i>
                                         <?= $user_name ?>
                                     </a>
@@ -26,14 +26,16 @@ function Card($user_name, $title, $description, $posted_time, $url_source, $comm
                             </div>
                             <!-- Main content column -->
                             <div class="container">
-                                <h2 class="card-title"><?= $title ?></h2>
+                                <h2 class="card-title">
+                                    <a href="https://example.com/" class="text-dark"><?= $title ?></a>
+                                </h2>
                                 <p class="card-text"><?= $description ?></p>
                                 <small class="text-muted">
-                                    <a href="#" class="card-link">
+                                    <a href="https://example.com/" class="card-link">
                                         <i class="fas fa-external-link-alt mx-1"></i>
                                         <?= $url_source ?>
                                     </a>
-                                    <a href="#" class="card-link ml-2">
+                                    <a href="/story.php#comments" class="card-link ml-2">
                                         <i class="fas fa-comments mx-1"></i>
                                         <?= $comments ?>
                                         <?= $comments == 1 ? "comment" : "comments" ?>
@@ -43,9 +45,9 @@ function Card($user_name, $title, $description, $posted_time, $url_source, $comm
                                     <small class="text-muted">
                                         <?php for ($i = 0; $i < count($tags); $i++) :
                                             if ($i == 0) : ?>
-                                                <a href="#" class="card-link">#<?= $tags[$i] ?></a>
+                                                <a href="/topic.php" class="card-link">#<?= $tags[$i] ?></a>
                                             <?php else : ?>
-                                                <a href="#" class="card-link ml-2">#<?= $tags[$i] ?></a>
+                                                <a href="/topic.php" class="card-link ml-2">#<?= $tags[$i] ?></a>
                                             <?php endif; ?>
                                         <?php endfor; ?>
                                     </small>
@@ -57,9 +59,9 @@ function Card($user_name, $title, $description, $posted_time, $url_source, $comm
                     <div class="col">
                         <!-- Votes interaction column -->
                         <div class="d-flex flex-lg-column align-items-center justify-content-center">
-                            <a href="#" class="btn btn-link text-dark"><i class="fas fa-arrow-up"></i></a>
+                            <button class="btn btn-link text-dark"><i class="fas fa-arrow-up"></i></a>
                             <?= $points ?>
-                            <a href="#" class="btn btn-link text-dark"><i class="fas fa-arrow-down"></i></a>
+                            <button class="btn btn-link text-dark"><i class="fas fa-arrow-down"></i></a>
                         </div>
                     </div>
                 </div>

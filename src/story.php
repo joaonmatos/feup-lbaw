@@ -16,12 +16,12 @@ function NewsPage($img_url, $title, $user_name, $posted_time, $tags, $comments)
         <div class="d-flex justify-content-between mb-2">
             <div>
                 <?php for ($i = 0; $i < count($tags); $i++) { ?>
-                    <a href="#">#<?= $tags[$i] ?></a>
+                    <a href="/topic.php">#<?= $tags[$i] ?></a>
                 <?php } ?>
             </div>
             <div>
                 <small class="mx-1">
-                    <a href="#">
+                    <a href="/profile.php">
                         <i class="fas fa-user mx-1"></i>
                         <?= $user_name ?>
                     </a>
@@ -33,7 +33,7 @@ function NewsPage($img_url, $title, $user_name, $posted_time, $tags, $comments)
             </div>
         </div>
 
-        <div>
+        <div id="comments">
             <span>
                 <?= count($comments) ?>
                 <?= count($comments) == 1 ? " Comment" : " Comments" ?>
@@ -48,9 +48,9 @@ function NewsPage($img_url, $title, $user_name, $posted_time, $tags, $comments)
             <div class="d-flex">
                 <p class="mr-1">Sort by: </p>
                 <div class="dropdown">
-                    <a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New</a>
+                    <a href="" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Recent</a>
+                        <a class="dropdown-item" href="">Recent</a>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@ function draw_comment($comment)
     <div class="card card-body">
         <div class="d-inline-block mb-2">
             <small class="mx-1">
-                <a href="#">
+                <a href="/profile.php">
                     <i class="fas fa-user mr-1"></i>
                     <?= $comment[0] ?>
                 </a>
@@ -83,7 +83,7 @@ function draw_comment($comment)
         </div>
         <?= $comment[2] ?>
         <div class="d-flex justify-content-end">
-            <a href="#">Reply</a>
+            <btn class="btn btn-link">Reply</a>
         </div>
     </div>
 <?php }
