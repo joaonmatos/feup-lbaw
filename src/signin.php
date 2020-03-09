@@ -12,7 +12,7 @@ function Signin()
             <input type="password" name="inputPassword" id="inputPassword" class="form-control lastInputForm" placeholder="Password" required="">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
-        <div class="text-center mt-2">
+        <div class="text-center mt-2 d-flex flex-column">
             <!-- Change these hrefs after creating the subpages -->
             <a href="#">Don't have an account?</a>
             <a href="#">Forgot your password?</a>
