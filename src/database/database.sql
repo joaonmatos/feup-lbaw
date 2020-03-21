@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS member;
 -- Tables
 DROP TABLE IF EXISTS member
 
+-- R01
 CREATE TABLE member (
     id INTEGER PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
@@ -23,12 +24,14 @@ CREATE TABLE member (
     is_admin BOOLEAN NOT NULL
 );
 
+-- R05
 CREATE TABLE topic(
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     creation_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL
 );
 
+-- R06
 CREATE TABLE story(
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
@@ -37,6 +40,7 @@ CREATE TABLE story(
     reality_check NUMERIC NOT NULL CONSTRAINT reality_check_ck CHECK ((reality_check >= 0) AND (reality_check <= 1))
 );
 
+-- R10
 CREATE TABLE comment(
     id INTEGER PRIMARY KEY,
     content TEXT NOT NULL,
@@ -45,26 +49,34 @@ CREATE TABLE comment(
     reality_check NUMERIC NOT NULL CONSTRAINT reality_check_ck CHECK ((reality_check >= 0) AND (reality_check <= 1))
 );
 
+-- R02
 CREATE TABLE friend(
-    user_id INTEGER REFERENCES member(id) PRIMARY KEY,
-    friend_id INTEGER REFERENCES member(id)
+    user_id INTEGER REFERENCES member(id),
+    friend_id INTEGER REFERENCES member(id),
+    PRIMARY KEY (user_id, friend_id)
 );
 
+-- R03
 CREATE TABLE favourites(
-    user_id INTEGER REFERENCES member(id) PRIMARY KEY,
-    topic_id INTEGER REFERENCES topic(id)
+    user_id INTEGER REFERENCES member(id),
+    topic_id INTEGER REFERENCES topic(id),
+    PRIMARY KEY (user_id, topic_id)
 );
 
+-- R04
 CREATE TABLE expert(
     user_id INTEGER REFERENCES member(id) PRIMARY KEY,
     topic_id INTEGER REFERENCES topic(id)
 );
 
+-- R07
 CREATE TABLE belongs_to(
     story_id INTEGER REFERENCES story(id) PRIMARY KEY,
     topic_id INTEGER REFERENCES topic(id)
 );
 
+
+-- R08
 CREATE TABLE rates_story(
     user_id INTEGER REFERENCES member(id),
     story_id INTEGER REFERENCES story(id),
@@ -72,13 +84,15 @@ CREATE TABLE rates_story(
     PRIMARY KEY(user_id, story_id)
 );
 
+-- R09
 CREATE TABLE rates_comment(
     user_id INTEGER REFERENCES member(id),
     comment_id INTEGER REFERENCES comment(id),
     rating BOOLEAN NOT NULL,
-    PRIMARY KEY(user_id,comment_id)
+    PRIMARY KEY(user_id, comment_id)
 );
 
+-- R11
 CREATE TABLE report(
     id INTEGER REFERENCES member(id),
     content TEXT NOT NULL,
