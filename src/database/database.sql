@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS member;
 */
 
 -- Tables
-DROP TABLE IF EXISTS member
+DROP TABLE IF EXISTS member;
 
 -- R01
 CREATE TABLE member (
