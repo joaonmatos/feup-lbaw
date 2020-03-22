@@ -1,5 +1,5 @@
 <?php
-function Navbar($user, $page)
+function Navbar($user)
 {
 ?>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -10,6 +10,7 @@ function Navbar($user, $page)
 
         <div class="collapse navbar-collapse" id="navbar-content">
             <div class="navbar-nav mr-auto">
+                <a class="nav-link active" href="/all.php">All Stories</a>
                 <?php NavMenu($user, $page); ?>
             </div>
             <?php
@@ -29,21 +30,13 @@ function SessionButtons()
     <a class="btn btn-outline-light mx-md-2" href="/signup.php">Sign Up</a>
     <a class="btn btn-light mx-md-2" href="/signin.php">Sign In</a>
 <?php }
-function NavMenu($user, $page)
+function NavMenu($user)
 { ?>
     <div class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-            <?= $page ?>
+            <?= $user === null ? "Recommended" : "My" ?> Topics
         </a>
         <div class="dropdown-menu">
-            <span class="dropdown-item text-muted mx-2">Navigation</span>
-            <form class="dropdown-item form-inline">
-                <input class="form-control border-secondary" type="text" placeholder="Go to topic">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-angle-right"></i></button>
-            </form>
-            <a class="dropdown-item" href="/"><i class="fas fa-home mx-2 text-muted"></i>Home</a>
-            <a class="dropdown-item" href="/all.php"><i class="fas fa-globe mx-2 text-muted"></i>Global Feed</a>
-            <div class="dropdown-divider"></div>
             <span class="dropdown-item text-muted mx-2"><?= $user === null ? "Recommended" : "My" ?> Topics</span>
             <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic1</a>
             <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic2</a>
