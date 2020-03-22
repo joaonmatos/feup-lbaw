@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS member;
 
 -- R01
 CREATE TABLE member (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
@@ -26,14 +26,14 @@ CREATE TABLE member (
 
 -- R05
 CREATE TABLE topic(
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     creation_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL
 );
 
 -- R06
 CREATE TABLE story(
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     author_id INTEGER REFERENCES member(id),
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE story(
 
 -- R10
 CREATE TABLE comment(
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
     author_id INTEGER REFERENCES member(id),
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
