@@ -1,4 +1,4 @@
-/* Remove comments for testing
+-- Tables
 DROP TABLE IF EXISTS report;
 DROP TABLE IF EXISTS rates_comment;
 DROP TABLE IF EXISTS rates_story;
@@ -10,10 +10,7 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS story;
 DROP TABLE IF EXISTS topic;
 DROP TABLE IF EXISTS member;
-*/
 
--- Tables
-DROP TABLE IF EXISTS member;
 
 -- R01
 CREATE TABLE member (
