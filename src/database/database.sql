@@ -18,6 +18,7 @@ CREATE TABLE member (
     username TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
     is_admin BOOLEAN NOT NULL
 );
 
