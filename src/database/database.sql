@@ -53,7 +53,7 @@ CREATE TABLE comment(
 );
 
 -- R02
-CREATE TABLE friend(
+CREATE TABLE follows(
     user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
     friend_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (user_id, friend_id)
@@ -68,15 +68,11 @@ CREATE TABLE favourites(
 
 -- R04
 CREATE TABLE expert(
-<<<<<<< HEAD
     user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
     topic_id INTEGER REFERENCES topic(id) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY_KEY(user_id, topic_id)
-=======
-    user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE  PRIMARY KEY,
-    topic_id INTEGER REFERENCES topic(id) ON UPDATE CASCADE ON DELETE CASCADE
->>>>>>> 2d13c9fd3c27e92204ec4db1c2c61870c50a945f
 );
+
 
 -- R07
 CREATE TABLE belongs_to(
@@ -112,8 +108,4 @@ CREATE TABLE report(
     constraint only_one_value 
         check (        (story_id is null or comment_id is null) 
                and not (story_id is null and comment_id is null) )
-<<<<<<< HEAD
 );
-=======
-);
->>>>>>> 2d13c9fd3c27e92204ec4db1c2c61870c50a945f
