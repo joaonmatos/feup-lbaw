@@ -178,7 +178,7 @@ INSERT INTO "favourites" (user_id,topic_id) VALUES (5,8);
 INSERT INTO "favourites" (user_id,topic_id) VALUES (6,1);
 INSERT INTO "favourites" (user_id,topic_id) VALUES (6,5);
 INSERT INTO "favourites" (user_id,topic_id) VALUES (6,12);
-INSERT INTO "favourites" (user_id,topic_id) VALUES (7,4);)
+INSERT INTO "favourites" (user_id,topic_id) VALUES (7,4);
 INSERT INTO "favourites" (user_id,topic_id) VALUES (8,4);
 INSERT INTO "favourites" (user_id,topic_id) VALUES (9,7);
 INSERT INTO "favourites" (user_id,topic_id) VALUES (9,11);
@@ -261,33 +261,33 @@ INSERT INTO "rates_story" (user_id, story_id, rating) VALUES (30,17,TRUE);
 
 
 
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (21,1,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (20,2,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (5,3,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (21,4,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (8,5,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (14,6,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (19,7,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (21,8,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (31,9,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (2,10,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (15,11,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (27,12,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (8,13,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (10,14,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (14,15,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (3,16,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (7,17,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (15,18,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (20,19,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (21,20,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (29,21,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (22,22,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (25,23,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (5,24,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (15,25,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (18,26,TRUE);
-INSERT INTO "rates_story" (user_id, comment_id, rating) VALUES (10,27,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,1,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (20,2,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (5,3,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,4,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (8,5,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (14,6,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (19,7,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,8,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (31,9,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (2,10,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (15,11,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (27,12,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (8,13,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (10,14,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (14,15,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (3,16,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (7,17,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (15,18,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (20,19,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,20,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (29,21,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (22,22,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (25,23,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (5,24,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (15,25,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (18,26,TRUE);
+INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (10,27,TRUE);
 
 
 
