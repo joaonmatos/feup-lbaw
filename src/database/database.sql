@@ -70,7 +70,7 @@ CREATE TABLE favourites(
 CREATE TABLE expert(
     user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
     topic_id INTEGER REFERENCES topic(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    PRIMARY_KEY(user_id, topic_id)
+    PRIMARY KEY(user_id, topic_id)
 );
 
 
