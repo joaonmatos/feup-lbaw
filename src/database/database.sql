@@ -1,4 +1,7 @@
--- Tables
+---------------------------------
+-- Drop old schema
+---------------------------------
+
 DROP TABLE IF EXISTS report;
 DROP TABLE IF EXISTS rates_comment;
 DROP TABLE IF EXISTS rates_story;
@@ -12,6 +15,9 @@ DROP TABLE IF EXISTS topic;
 DROP TABLE IF EXISTS member;
 
 
+---------------------------------
+-- Tables
+---------------------------------
 -- R01
 CREATE TABLE member (
     id SERIAL PRIMARY KEY,
@@ -109,3 +115,69 @@ CREATE TABLE report(
         check (        (story_id is null or comment_id is null) 
                and not (story_id is null and comment_id is null) )
 );
+
+---------------------------------
+-- Indexes
+---------------------------------
+
+---------------------------------
+-- Triggers and UDFs
+---------------------------------
+
+CREATE FUNCTION check_comment_rate() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS (SELECT * FROM rates_comment WHERE rates_comment.user_id = NEW.user_id 
+                                           AND rates_comment.comment_id = NEW.comment_id 
+                                           AND rates_comment.rating = NEW.rating) THEN
+        RAISE EXCEPTION "A user can't up or downvote the same comment more than once.";
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE PLPGSQL;
+
+CREATE TRIGGER check_comment_rate
+    BEFORE INSERT OR UPDATE ON RATES_COMMENT
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_comment_rate;
+
+
+CREATE FUNCTION check_story_rate() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS (SELECT * FROM rates_story WHERE rates_story.user_id = NEW.user_id 
+                                           AND rates_story.comment_id = NEW.comment_id 
+                                           AND rates_story.rating = NEW.rating) THEN
+        RAISE EXCEPTION "A user can't up or downvote the same story more than once.";
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE PLPGSQL;
+
+CREATE TRIGGER check_story_rate
+    BEFORE INSERT OR UPDATE ON rates_story
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_story_rate;
+
+
+CREATE FUNCTION update_rating RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF NEW.rating == TRUE THEN
+        UPDATE TABLE story
+        SET story.rating = story.rating + 1 WHERE NEW.story_id = story.story_id;
+    ELSE
+        UPDATE TABLE story
+        SET story.rating = story.rating - 1 WHERE NEW.story_id = story.story_id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_rating
+    AFTER INSERT ON story
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_rating;
