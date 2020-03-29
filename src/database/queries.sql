@@ -49,3 +49,7 @@ WHERE topic_id=favourite_topics.topicId
 	AND story.author_id= member.id
 	ORDER BY $orderCriteria DESC
 
+--Get general feed
+SELECT id, rating/extract(day from (NOW()-published_date)*86400*1000) / 1000 as priority
+FROM "story"
+ORDER BY priority DESC
