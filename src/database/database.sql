@@ -41,7 +41,8 @@ CREATE TABLE story(
     title TEXT NOT NULL,
     author_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE SET NULL,
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
-    reality_check NUMERIC NOT NULL CONSTRAINT reality_check_ck CHECK ((reality_check >= 0) AND (reality_check <= 1))
+    reality_check NUMERIC NOT NULL CONSTRAINT reality_check_ck CHECK ((reality_check >= 0) AND (reality_check <= 1)),
+    rating INTEGER
 );
 
 -- R10
@@ -50,7 +51,7 @@ CREATE TABLE comment(
     content TEXT NOT NULL,
     author_id INTEGER REFERENCES member(id),
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL, 
-    reality_check NUMERIC NOT NULL CONSTRAINT reality_check_ck CHECK ((reality_check >= 0) AND (reality_check <= 1)),
+    rating INTEGER,
     comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE SET NULL,
     story_id INTEGER REFERENCES story(id) ON UPDATE CASCADE ON DELETE CASCADE,
     constraint only_one_value 
