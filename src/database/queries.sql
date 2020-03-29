@@ -64,4 +64,17 @@ WHERE user_id=$userId
 SELECT rating
 FROM "rates_comment"
 WHERE user_id=$userId 
-	AND comment_id=$storyId
+	AND comment_id=$commentId
+
+--Full text
+SELECT story.title, topic.name
+FROM "story", "belongs_to", "topic", 
+(
+	SELECT story.id as storyId, to_tsvector(story.title) as vector
+	FROM "story"
+) titles
+WHERE story.id=belongs_to.story_id
+	AND story.id= titles.storyId
+	AND belongs_to.topic_id=topic.id
+	AND (titles.vector @@ to_tsquery('trump')
+	OR topic.name ILIKE '%politics%')
