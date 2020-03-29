@@ -129,6 +129,21 @@ CREATE TABLE report(
 -- Indexes
 ---------------------------------
 
+-- IDX11
+CREATE INDEX comment_full_text ON comment USING GIST(to_tsvector(content));
+-- IDX12
+CREATE INDEX story_title_full_text ON story USING GIST(to_tsvector(title));
+-- IDX01
+CREATE INDEX topic_stories ON belongs_to (topic_id);
+-- IDX02
+CREATE INDEX user_comment_rating ON rates_comment USING hash (user_id, comment_id);
+-- IDX03
+CREATE INDEX user_story_rating ON rates_story USING hash(user_id, story_id);
+-- IDX04
+CREATE INDEX member_username ON member USING hash (username);
+-- IDX05
+CREATE INDEX user_topics ON favourites (user_id)
+
 ---------------------------------
 -- Triggers and UDFs
 ---------------------------------
