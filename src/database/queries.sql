@@ -53,3 +53,15 @@ WHERE topic_id=favourite_topics.topicId
 SELECT id, rating/extract(day from (NOW()-published_date)*86400*1000) / 1000 as priority
 FROM "story"
 ORDER BY priority DESC
+
+--Get rating for user and story
+SELECT rating
+FROM "rates_story"
+WHERE user_id=$userId 
+	AND story_id=$storyId
+
+--Get rating for user and comment
+SELECT rating
+FROM "rates_comment"
+WHERE user_id=$userId 
+	AND comment_id=$storyId
