@@ -133,6 +133,7 @@ CREATE TABLE report(
 -- Triggers and UDFs
 ---------------------------------
 
+-- TRIGGER01
 CREATE FUNCTION check_comment_rate() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -152,6 +153,7 @@ CREATE TRIGGER check_comment_rate
     EXECUTE PROCEDURE check_comment_rate();
 
 
+-- TRIGGER02
 CREATE FUNCTION check_story_rate() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -171,6 +173,7 @@ CREATE TRIGGER check_story_rate
     EXECUTE PROCEDURE check_story_rate();
 
 
+-- TRIGGER03
 CREATE FUNCTION insert_rating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -192,6 +195,7 @@ CREATE TRIGGER insert_rating
     EXECUTE PROCEDURE insert_rating();
 
 
+-- TRIGGER04
 CREATE FUNCTION update_rating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -215,6 +219,7 @@ CREATE TRIGGER update_rating
     EXECUTE PROCEDURE update_rating();
 
 
+-- TRIGGER05
 CREATE FUNCTION check_story_cardinality() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -232,11 +237,12 @@ CREATE TRIGGER check_story_cardinality
     EXECUTE PROCEDURE check_story_cardinality();
 
 
+-- TRIGGER06
 CREATE FUNCTION check_expert_cardinality() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-    IF ((SELECT count(*) FROM expert WHERE expert.user_id = NEW.user_id) >= 3) THEN
-        RAISE EXCEPTION 'An expert cannot be expert in more than 3 topics.';
+    IF ((SELECT count(*) FROM expert WHERE expert.user_id = NEW.user_id) >= 7) THEN
+        RAISE EXCEPTION 'An expert cannot be expert in more than 7 topics.';
     END IF;
     RETURN NEW;
 END
@@ -249,6 +255,7 @@ CREATE TRIGGER check_expert_cardinality
     EXECUTE PROCEDURE check_expert_cardinality();
 
 
+-- TRIGGER07
 CREATE FUNCTION check_password() RETURNS TRIGGER AS
 $BODY$
 BEGIN
