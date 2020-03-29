@@ -54,7 +54,7 @@ INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VAL
 INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (3,'Biden and Bernie face off',7,'2020-03-24',0.5,0);
 INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (4,'Sanders wins Democrats Abroad primary',3,'2020-03-24',0.9,1);
 INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (5,'Estado de Emergencia',4,'2020-03-24',1,1);
-INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (6,'Cristiano Ronaldo é homosexual',10,'2020-03-24',0.1,-2);
+INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (6,'Cristiano Ronaldo marca na própria baliza',10,'2020-03-24',0.1,-2);
 INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (7,'Deaths in Italy pass the thousands',25,'2020-03-24',0.8,2);
 INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (8,'When will the vacine come?',13,'2020-03-24',0.5,1);
 INSERT INTO "story" (id,title,author_id,published_date,reality_check,rating) VALUES (9,'Rich people have more money than poor people',20,'2020-03-24',0.7,0);
