@@ -1,17 +1,31 @@
--- Tables
+---------------------------------
+-- Drop old schema
+---------------------------------
+
 DROP TABLE IF EXISTS report;
 DROP TABLE IF EXISTS rates_comment;
 DROP TABLE IF EXISTS rates_story;
 DROP TABLE IF EXISTS belongs_to;
 DROP TABLE IF EXISTS expert;
 DROP TABLE IF EXISTS favourites;
-DROP TABLE IF EXISTS friend;
+DROP TABLE IF EXISTS follows;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS story;
 DROP TABLE IF EXISTS topic;
-DROP TABLE IF EXISTS member;
+DROP TABLE IF EXISTS member CASCADE;
+
+DROP FUNCTION IF EXISTS check_comment_rate() CASCADE;
+DROP FUNCTION IF EXISTS check_story_rate() CASCADE;
+DROP FUNCTION IF EXISTS update_rating() CASCADE;
+DROP FUNCTION IF EXISTS insert_rating() CASCADE;
+DROP FUNCTION IF EXISTS check_story_cardinality() CASCADE;
+DROP FUNCTION IF EXISTS check_expert_cardinality() CASCADE;
+DROP FUNCTION IF EXISTS check_password() CASCADE;
 
 
+---------------------------------
+-- Tables
+---------------------------------
 -- R01
 CREATE TABLE member (
     id SERIAL PRIMARY KEY,
@@ -111,7 +125,10 @@ CREATE TABLE report(
                and not (story_id is null and comment_id is null) )
 );
 
--- INDICES
+---------------------------------
+-- Indexes
+---------------------------------
+
 -- IDX11
 CREATE INDEX comment_full_text ON comment USING GIST(to_tsvector(content));
 -- IDX12
@@ -126,3 +143,146 @@ CREATE INDEX user_story_rating ON rates_story USING hash(user_id, story_id);
 CREATE INDEX member_username ON member USING hash (username);
 -- IDX05
 CREATE INDEX user_topics ON favourites (user_id)
+
+---------------------------------
+-- Triggers and UDFs
+---------------------------------
+
+-- TRIGGER01
+CREATE FUNCTION check_comment_rate() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS (SELECT * FROM rates_comment WHERE rates_comment.user_id = NEW.user_id 
+                                           AND rates_comment.comment_id = NEW.comment_id 
+                                           AND rates_comment.rating = NEW.rating) THEN
+        RAISE EXCEPTION 'A user cannot up or downvote the same comment more than once.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE PLPGSQL;
+
+CREATE TRIGGER check_comment_rate
+    BEFORE INSERT OR UPDATE ON rates_comment
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_comment_rate();
+
+
+-- TRIGGER02
+CREATE FUNCTION check_story_rate() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS (SELECT * FROM rates_story WHERE rates_story.user_id = NEW.user_id 
+                                           AND rates_story.story_id = NEW.story_id 
+                                           AND rates_story.rating = NEW.rating) THEN
+        RAISE EXCEPTION 'A user cannot up or downvote the same story more than once.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE PLPGSQL;
+
+CREATE TRIGGER check_story_rate
+    BEFORE INSERT OR UPDATE ON rates_story
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_story_rate();
+
+
+-- TRIGGER03
+CREATE FUNCTION insert_rating() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF NEW.rating IS TRUE THEN
+        UPDATE story
+        SET rating = rating + 1 WHERE NEW.story_id = story.id;
+    ELSE
+        UPDATE story
+        SET rating = rating - 1 WHERE NEW.story_id = story.id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_rating
+    AFTER INSERT ON rates_story
+    FOR EACH ROW
+    EXECUTE PROCEDURE insert_rating();
+
+
+-- TRIGGER04
+CREATE FUNCTION update_rating() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF NEW.rating IS TRUE AND OLD.rating IS FALSE THEN
+        UPDATE story
+        SET rating = rating + 2 WHERE NEW.story_id = story.id;
+    ELSIF NEW.rating IS FALSE AND OLD.rating IS TRUE THEN
+        UPDATE story
+        SET rating = rating - 2 WHERE NEW.story_id = story.id;
+    ELSE 
+        RAISE EXCEPTION 'A user cannot up or downvote the same story more than once.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_rating
+    AFTER UPDATE ON rates_story
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_rating();
+
+
+-- TRIGGER05
+CREATE FUNCTION check_story_cardinality() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF ((SELECT count(*) FROM belongs_to WHERE belongs_to.story_id = NEW.story_id) >= 3) THEN
+        RAISE EXCEPTION 'A story cannot be associated with more than 3 topics.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_story_cardinality
+    BEFORE INSERT ON belongs_to
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_story_cardinality();
+
+
+-- TRIGGER06
+CREATE FUNCTION check_expert_cardinality() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF ((SELECT count(*) FROM expert WHERE expert.user_id = NEW.user_id) >= 7) THEN
+        RAISE EXCEPTION 'An expert cannot be expert in more than 7 topics.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_expert_cardinality
+    BEFORE INSERT ON expert
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_expert_cardinality();
+
+
+-- TRIGGER07
+CREATE FUNCTION check_password() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF ((SELECT password FROM member WHERE member.id = NEW.id) = NEW.password) THEN
+        RAISE EXCEPTION 'New password must be different from old password';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_password
+    BEFORE UPDATE ON member
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_password();
