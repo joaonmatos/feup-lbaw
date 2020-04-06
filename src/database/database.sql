@@ -26,6 +26,7 @@ DROP FUNCTION IF EXISTS check_password() CASCADE;
 ---------------------------------
 -- Tables
 ---------------------------------
+
 -- R01
 CREATE TABLE member (
     id SERIAL PRIMARY KEY,
@@ -91,8 +92,9 @@ CREATE TABLE expert(
 
 -- R07
 CREATE TABLE belongs_to(
-    story_id INTEGER REFERENCES story(id) ON UPDATE CASCADE ON DELETE CASCADE PRIMARY KEY,
-    topic_id INTEGER REFERENCES topic(id) ON UPDATE CASCADE ON DELETE CASCADE
+    story_id INTEGER REFERENCES story(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    topic_id INTEGER REFERENCES topic(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    PRIMARY KEY(story_id, topic_id)
 );
 
 
@@ -130,19 +132,25 @@ CREATE TABLE report(
 ---------------------------------
 
 -- IDX11
-CREATE INDEX comment_full_text ON comment USING GIST(to_tsvector(content));
+CREATE INDEX comment_full_text ON comment USING GIST(to_tsvector('english', content));
+
 -- IDX12
-CREATE INDEX story_title_full_text ON story USING GIST(to_tsvector(title));
+CREATE INDEX story_title_full_text ON story USING GIST(to_tsvector('english', title));
+
 -- IDX01
-CREATE INDEX topic_stories ON belongs_to (topic_id);
+CREATE INDEX topic_stories ON belongs_to(topic_id);
+
 -- IDX02
-CREATE INDEX user_comment_rating ON rates_comment USING hash (user_id, comment_id);
+CREATE INDEX user_comment_rating ON rates_comment USING btree(user_id, comment_id);
+
 -- IDX03
-CREATE INDEX user_story_rating ON rates_story USING hash(user_id, story_id);
+CREATE INDEX user_story_rating ON rates_story USING btree(user_id, story_id);
+
 -- IDX04
-CREATE INDEX member_username ON member USING hash (username);
+CREATE INDEX member_username ON member USING btree(username);
+
 -- IDX05
-CREATE INDEX user_topics ON favourites (user_id)
+CREATE INDEX user_topics ON favourites (user_id);
 
 ---------------------------------
 -- Triggers and UDFs
