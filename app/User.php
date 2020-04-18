@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'password', 'is_admin',
     ];
 
     /**
@@ -27,13 +27,24 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
     /**
      * The cards this user owns.
      */
-     public function cards() {
-      return $this->hasMany('App\Card');
+     public function stories() {
+      return $this->hasMany('App\Story');
     }
 }
+
+/*
+-- R01
+CREATE TABLE member (
+    id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    is_admin BOOLEAN NOT NULL
+); */
