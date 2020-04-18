@@ -301,37 +301,37 @@ CREATE TRIGGER check_password
 -- Populate the database
 -----------------------------------------
 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Speedy','Joao Monteiro','joaomonteiromail@gmail.com','GpY7UYPASx',TRUE);
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Goli','Gonçalo Oliveira','up201705494@fe.up.pt','3x7XJ50Tl4',TRUE);
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Ferreira','Joana Ferreira','up201705722@fe.up.pt','tlbe7OS4H8',TRUE);
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('JMatos','Joao Matos','up201705471@fe.up.pt','aRKJo0igHZ',TRUE);
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('mr_bubble','James Bubble','bubbleJ@gmail.com','9OI2Y0MQYS',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('jj_R','Randall','jjrandal@gmail.com','YsSjHUEG7n',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('shadowmose','Miranda','shadowmose@gmail.com','doGKytPq4k',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('SovietWomble','Soviet Womble','sovietwomble@gmail.com','fK5c1nNKDI',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('kerni86','Erny','kerni86@gmail.com','DcNXKjn5UA',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('remiliascarlett','Remilia Scarlett','remiliascarlett@gmail.com','bYxO52xfOq',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Hououin','Rintaro Okabe','secretlab@gmail.com','sTz1Z6xjrT',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('SortaMaliciousGaming','Ryan Haywood','ryanhay@gmail.com','u13Qz3Mcmf',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('dat_cat_guy','Cat Man','datcatguy@gmail.com','uq0OBDcGi4',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Gladiator','My name is Maximus Decimus Meridius, commander of the Armies of the North, General of the Felix Legions, loyal servant to the true emperor, Marcus Aurelius. Father to a murdered son, husband to a murdered wife. And I will have my vengeance, in this life or the next','romangladiator@gmail.com','W8mDYkiPtb',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('benyhild','Ben Hild','benyhild@gmail.com','0rTFf0PqBu',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('gearlessjoe','Joe Gears','gearlessjoe@gmail.com','IxOrHPTo4c',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('maria_of_pees','Maria Pee','mariapess@gmail.com','OzV8mDFIB7',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('enterthenick','Nick','thenick@gmail.com','hXHNW3vdaz',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('1987_azrael','Azrael','az87el@gmail.com','41oGSWRiCC',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Emiru','Emiru','emiru@gmail.com','hfAdAvujjR',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Jett','Joan Jett','joanj@gmail.com','iArsHASZ5l',FALSE);
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('rackun','Rocky Racoon','rackun@gmail.com','0foKEU3gXK',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('plantburger','Andrew Adams','plantburguer@gmail.com','WtCk6IqEOC',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('jpeg','Adams Andrew','jpeg@gmail.com','Je06p4R6QX',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('chadsong','Chad Smith','chadsong@gmail.com','KMgIIoVsnf',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('jetmechanic','Jet Grousum','jetmechanic@gmail.com','s4E9dkwdUl',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('v3ldrin','Ainsley','veldrin@gmail.com','qnfn3Dq5Vv',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Schrute','Dwight Schrute','dschrute@gmail.com','Sbe2HZtsdk',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('orangegirl','Barbara','orangegirl@gmail.com','quiy5dmOfz',FALSE);
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('TheElon','Elon Musk','elon@spacex.com','DDNoP7f2V1',FALSE); 
-INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('enricoalois','Enrique Vasques','enricalois@gmail.com','inZIqtUlfp',FALSE);  
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Speedy','Joao Monteiro','joaomonteiromail@gmail.com','$2y$10$o4m48a2MwRmoUlTx7LMzzeC1y8L8TpM0oq/c.Ri4EB7kKY5gyMoV2',TRUE);
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Goli','Gonçalo Oliveira','up201705494@fe.up.pt','$2y$10$eX5ZufMjQ2w0GdcgxFQL/.KeM56YVpuEdKo/iI6qEJyAi3Oe/abvW',TRUE);
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Ferreira','Joana Ferreira','up201705722@fe.up.pt','$2y$10$xf6EvUH70/hgH/qKQfw6euQ8Qd1vYYfRqZwkoit9TL6kYBNIdqq2e',TRUE);
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('JMatos','Joao Matos','up201705471@fe.up.pt','$2y$10$8uF0IkoWinraIyFNjaqpZu2GN8wLY390wc1UIM3K43lEbHQe4hvK6',TRUE);
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('mr_bubble','James Bubble','bubbleJ@gmail.com','$2y$10$U9NdpiBh8nrMFcVobD700ukGKDX03UbjRuCnu5XEYULvB8k8t09Ba',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('jj_R','Randall','jjrandal@gmail.com','$2y$10$HHY8nS7Rt/ZhPwjf35YiX.8BO4yR0QwcdxB/Xu7ZHIzhHvRWHlu3y',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('shadowmose','Miranda','shadowmose@gmail.com','$2y$10$XLWdN8EX6NTxh5QJ5e8YieXNplP2CY3gkCDBbAs9egsOv0f2zR2di',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('SovietWomble','Soviet Womble','sovietwomble@gmail.com','$2y$10$2l4zxqXXNVD4WLZ3ptlYjeaYwijh3C0JH3az0wm6oaGaosEM7PPIK',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('kerni86','Erny','kerni86@gmail.com','$2y$10$L48WPcAgl67AY3rqEAQ25e/9CFaBU6kq3n6uN8yeUJBFpclcQURR6',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('remiliascarlett','Remilia Scarlett','remiliascarlett@gmail.com','$2y$10$29x90Rcm5qk3N0qExR9G1.pRhLUeQudKqSf4M8Kr85fmdY4UKkhNq',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Hououin','Rintaro Okabe','secretlab@gmail.com','$2y$10$O/v6VDxRR8f0wQjz.6tkTu4CrGkvoixQs1WcBkg7VNEJ4fSpKfEWa',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('SortaMaliciousGaming','Ryan Haywood','ryanhay@gmail.com','$2y$10$3mDv6I7mB5ujFFyJ/es95ekjOUfUgpiCkt2AYKOJtnmAqR69wKdHC',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('dat_cat_guy','Cat Man','datcatguy@gmail.com','$2y$10$9g.UNl9iDS6Oj0Kwo8yewOXIIhpEVWeJ21m8DDrFE2vlA/X6dXp4i',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Gladiator','My name is Maximus Decimus Meridius, commander of the Armies of the North, General of the Felix Legions, loyal servant to the true emperor, Marcus Aurelius. Father to a murdered son, husband to a murdered wife. And I will have my vengeance, in this life or the next','romangladiator@gmail.com','$2y$10$MxtnK45fxW63S2j8WaYtsOwAWYFlyf9K90NJUoa73raHitOCsF56m',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('benyhild','Ben Hild','benyhild@gmail.com','$2y$10$YGo4L9ROZwwgjZ6TTqt5eezY78w.qUbysV6OMExAq8lpBJkcX7SnO',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('gearlessjoe','Joe Gears','gearlessjoe@gmail.com','$2y$10$wVhGjzJCYNzYWjMhP5qb9OKNoreFxvAV5Pa5ru2BaR91Oi34mklbS',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('maria_of_pees','Maria Pee','mariapess@gmail.com','$2y$10$dEDEa20cJB6ip9OxoxBWpe18JiI2iP1vbTj6OmAlQRmEL6M6OCIEq',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('enterthenick','Nick','thenick@gmail.com','$2y$10$VZqih.PBM1.gvDg8jvhGWuJX2MWWzQwR1VhgGg8whJgrDc.J5SgXK',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('1987_azrael','Azrael','az87el@gmail.com','$2y$10$zQs/dj2dhhcM9EjY26uDdugpdQcjxiwMxfjLeGXSCnCcOLyd8Kr52',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Emiru','Emiru','emiru@gmail.com','$2y$10$8ohI6IoYqjUb4PDyBN/zA.DAAftBp3t6.clCxzDGRFGxydEZxtk1q',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Jett','Joan Jett','joanj@gmail.com','$2y$10$7B/Ez4ikZbf7vEUaA1fpK.940PqEjDRo13uBLXIYVct1YpCIYr5MG',FALSE);
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('rackun','Rocky Racoon','rackun@gmail.com','$2y$10$Qj1T/Qbbjtrcy0qJBiCmieJx1iY6qN3IOwa5.7KvE6U88VM.3Lg0W',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('plantburger','Andrew Adams','plantburguer@gmail.com','$2y$10$RvRdooxL.lNfmiLM/qDDuumBNCuTzF3UBm4tOBefuSR36Qwnx5hV2',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('jpeg','Adams Andrew','jpeg@gmail.com','$2y$10$7mGdqTVXDGj687SZt4ZoIe1hPHsBUNC/wiEVlKk//mlBvUrv6xWRW',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('chadsong','Chad Smith','chadsong@gmail.com','$2y$10$zcro.4Ez8yY.AyRI0jzv2OnXqoBTtsOxnZjxsR3pIL5B46BLVmYni',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('jetmechanic','Jet Grousum','jetmechanic@gmail.com','$2y$10$HzSSUZcnxclFqAMAb4HygeFwFulSJPMGA9XOWAAKvf2VKaTJFnUwm',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('v3ldrin','Ainsley','veldrin@gmail.com','$2y$10$y5PW2jHxLl6zv/dAHDeugeOkoYy/PNc2w.qnOTeQUuWtfojNgHOD.',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('Schrute','Dwight Schrute','dschrute@gmail.com','$2y$10$pX149vZG/VvTLJloUzLW9OIYVFJQd2UNQ6hdzkNLLHWst/G9a3jD2',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('orangegirl','Barbara','orangegirl@gmail.com','$2y$10$SDX3O3so8EPRbVq8zaPaDeRTxbG2tOABfdoI23IlVIAWxQgEnMTwS',FALSE);
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('TheElon','Elon Musk','elon@spacex.com','$2y$10$FLPk2tovTu6E7AGyvhkVMuLrXRWh6YP7Mh/ZtsVLvqO1SqKFhczQ6',FALSE); 
+INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('enricoalois','Enrique Vasques','enricalois@gmail.com','$2y$10$hz/.oXLRFv.AgfxVlGyG7u3PEeU/EvSXywf/rDeSKL1pD6c30dReq',FALSE);  
 
 
 INSERT INTO "topics" (name,creation_date) VALUES ('politics','2020-03-24');
