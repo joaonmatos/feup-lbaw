@@ -3,18 +3,18 @@
 ---------------------------------
 
 DROP TABLE IF EXISTS report CASCADE;
-DROP TABLE IF EXISTS rates_comment CASCADE;
+DROP TABLE IF EXISTS rates_comments CASCADE;
 DROP TABLE IF EXISTS rates_stories CASCADE;
 DROP TABLE IF EXISTS belong_tos CASCADE;
 DROP TABLE IF EXISTS expert CASCADE;
 DROP TABLE IF EXISTS favourites CASCADE;
 DROP TABLE IF EXISTS follows CASCADE;
-DROP TABLE IF EXISTS comment CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS stories CASCADE;
 DROP TABLE IF EXISTS topics CASCADE;
 DROP TABLE IF EXISTS member CASCADE;
 
-DROP FUNCTION IF EXISTS check_comment_rate() CASCADE;
+DROP FUNCTION IF EXISTS check_comments_rate() CASCADE;
 DROP FUNCTION IF EXISTS check_stories_rate() CASCADE;
 DROP FUNCTION IF EXISTS update_rating() CASCADE;
 DROP FUNCTION IF EXISTS insert_rating() CASCADE;
@@ -40,7 +40,7 @@ CREATE TABLE member (
 -- R05
 CREATE TABLE topics(
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL UNIQUE,
     creation_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL
 );
 
@@ -48,6 +48,7 @@ CREATE TABLE topics(
 CREATE TABLE stories(
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
+    url TEXT NOT NULL,
     author_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE SET NULL,
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     reality_check NUMERIC NOT NULL CONSTRAINT reality_check_ck CHECK ((reality_check >= 0) AND (reality_check <= 1)),
@@ -55,13 +56,13 @@ CREATE TABLE stories(
 );
 
 -- R10
-CREATE TABLE comment(
+CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
     author_id INTEGER REFERENCES member(id),
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL, 
     rating INTEGER,
-    comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE SET NULL,
+    comment_id INTEGER REFERENCES comments(id) ON UPDATE CASCADE ON DELETE SET NULL,
     story_id INTEGER REFERENCES stories(id) ON UPDATE CASCADE ON DELETE CASCADE,
     constraint only_one_value 
         check (        (story_id is null or comment_id is null) 
@@ -107,9 +108,9 @@ CREATE TABLE rates_stories(
 );
 
 -- R09
-CREATE TABLE rates_comment(
+CREATE TABLE rates_comments(
     user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    comment_id INTEGER REFERENCES comments(id) ON UPDATE CASCADE ON DELETE CASCADE,
     rating BOOLEAN NOT NULL,
     PRIMARY KEY(user_id, comment_id)
 );
@@ -120,7 +121,7 @@ CREATE TABLE report(
     content TEXT NOT NULL,
     published_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    comment_id INTEGER REFERENCES comments(id) ON UPDATE CASCADE ON DELETE CASCADE,
     story_id INTEGER REFERENCES stories(id) ON UPDATE CASCADE ON DELETE CASCADE,
     constraint only_one_value 
         check (        (story_id is null or comment_id is null) 
@@ -132,7 +133,7 @@ CREATE TABLE report(
 ---------------------------------
 
 -- IDX11
-CREATE INDEX comment_full_text ON comment USING GIST(to_tsvector('english', content));
+CREATE INDEX comments_full_text ON comments USING GIST(to_tsvector('english', content));
 
 -- IDX12
 CREATE INDEX stories_title_full_text ON stories USING GIST(to_tsvector('english', title));
@@ -141,7 +142,7 @@ CREATE INDEX stories_title_full_text ON stories USING GIST(to_tsvector('english'
 CREATE INDEX topics_stories ON belong_tos(topic_id);
 
 -- IDX02
-CREATE INDEX user_comment_rating ON rates_comment USING btree(user_id, comment_id);
+CREATE INDEX user_comments_rating ON rates_comments USING btree(user_id, comment_id);
 
 -- IDX03
 CREATE INDEX user_stories_rating ON rates_stories USING btree(user_id, story_id);
@@ -157,23 +158,23 @@ CREATE INDEX user_topicss ON favourites (user_id);
 ---------------------------------
 
 -- TRIGGER01
-CREATE FUNCTION check_comment_rate() RETURNS TRIGGER AS
+CREATE FUNCTION check_comments_rate() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-    IF EXISTS (SELECT * FROM rates_comment WHERE rates_comment.user_id = NEW.user_id 
-                                           AND rates_comment.comment_id = NEW.comment_id 
-                                           AND rates_comment.rating = NEW.rating) THEN
-        RAISE EXCEPTION 'A user cannot up or downvote the same comment more than once.';
+    IF EXISTS (SELECT * FROM rates_comments WHERE rates_comments.user_id = NEW.user_id 
+                                           AND rates_comments.comment_id = NEW.comment_id 
+                                           AND rates_comments.rating = NEW.rating) THEN
+        RAISE EXCEPTION 'A user cannot up or downvote the same comments more than once.';
     END IF;
     RETURN NEW;
 END
 $BODY$
 LANGUAGE PLPGSQL;
 
-CREATE TRIGGER check_comment_rate
-    BEFORE INSERT OR UPDATE ON rates_comment
+CREATE TRIGGER check_comments_rate
+    BEFORE INSERT OR UPDATE ON rates_comments
     FOR EACH ROW
-    EXECUTE PROCEDURE check_comment_rate();
+    EXECUTE PROCEDURE check_comments_rate();
 
 
 -- TRIGGER02
@@ -333,47 +334,48 @@ INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('TheElon','
 INSERT INTO "member" (username,name,email,password,is_admin) VALUES ('enricoalois','Enrique Vasques','enricalois@gmail.com','inZIqtUlfp',FALSE);  
 
 
-INSERT INTO "topics" (name,creation_date) VALUES ('Politics','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('fellthebern','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Portugal','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Coronavirus','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Economy','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Sports','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Forest','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('FamousPeople','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Japan','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('War','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Polution','2020-03-24');
-INSERT INTO "topics" (name,creation_date) VALUES ('Nature','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('politics','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('feelthebern','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('portugal','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('coronavirus','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('economy','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('sports','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('forest','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('famousPeople','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('japan','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('war','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('polution','2020-03-24');
+INSERT INTO "topics" (name,creation_date) VALUES ('nature','2020-03-24');
 
 
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Trump is at it again',1,'2020-03-24',0.74,0);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Putin is the best',28,'2020-03-24',1,2);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Biden and Bernie face off',7,'2020-03-24',0.5,0);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Sanders wins Democrats Abroad primary',3,'2020-03-24',0.9,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Estado de Emergencia',4,'2020-03-24',1,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Cristiano Ronaldo marca na própria baliza',10,'2020-03-24',0.1,-2);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Deaths in Italy pass the thousands',25,'2020-03-24',0.8,2);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('When will the vacine come?',13,'2020-03-24',0.5,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Rich people have more money than poor people',20,'2020-03-24',0.7,0);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Stock exchange crashes again',16,'2020-03-24',0.2,0);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Olimpic Games canceled?',2,'2020-03-24',0.7,2);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Could NHL implement compliance buyouts following COVID-19 shutdown?',26,'2020-03-24',0.4,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Australian bushfires',27,'2020-03-24',0.85,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Indian forest regrowing',30,'2020-03-24',0.24,3);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Jean Jett launches new album',19,'2020-03-24',0.1,2);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Kylie Jenner realeses new sex tape', 20,'2020-03-24',0.9,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Japan is the spring is the most beautiful place',1,'2020-03-24',1,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Old samurai ruin discovered',19,'2020-03-24',0.5,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Potential war between USA and Iraq',5,'2020-03-24',0.79,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('What started WW2?',8,'2020-03-24',0.6,-1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Polution levels decrease',4,'2020-03-24',0.9,1);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('The most poluted river in the world',14,'2020-03-24',0.4,2);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Extincted species resurfaces',31,'2020-03-24',0.4,0);
-INSERT INTO "stories" (title,author_id,published_date,reality_check,rating) VALUES ('Frogs!',24,'2020-03-24',1,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Trump is at it again',1,'2020-03-24',0.74,0);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Putin is the best',28,'2020-03-24',1,2);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Biden and Bernie face off',7,'2020-03-24',0.5,0);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Sanders wins Democrats Abroad primary',3,'2020-03-24',0.9,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Estado de Emergencia',4,'2020-03-24',1,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Cristiano Ronaldo marca na própria baliza',10,'2020-03-24',0.1,-2);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Deaths in Italy pass the thousands',25,'2020-03-24',0.8,2);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','When will the vacine come?',13,'2020-03-24',0.5,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Rich people have more money than poor people',20,'2020-03-24',0.7,0);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Stock exchange crashes again',16,'2020-03-24',0.2,0);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Olimpic Games canceled?',2,'2020-03-24',0.7,2);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Could NHL implement compliance buyouts following COVID-19 shutdown?',26,'2020-03-24',0.4,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Australian bushfires',27,'2020-03-24',0.85,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Indian forest regrowing',30,'2020-03-24',0.24,3);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Jean Jett launches new album',19,'2020-03-24',0.1,2);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Kylie Jenner realeses new sex tape', 20,'2020-03-24',0.9,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Japan is the spring is the most beautiful place',1,'2020-03-24',1,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Old samurai ruin discovered',19,'2020-03-24',0.5,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Potential war between USA and Iraq',5,'2020-03-24',0.79,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','What started WW2?',8,'2020-03-24',0.6,-1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Polution levels decrease',4,'2020-03-24',0.9,1);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','The most poluted river in the world',14,'2020-03-24',0.4,2);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Extincted species resurfaces',31,'2020-03-24',0.4,0);
+INSERT INTO "stories" (url, title,author_id,published_date,reality_check,rating) VALUES ('www.example.com','Frogs!',24,'2020-03-24',1,1);
 
 
 INSERT INTO "belong_tos" (story_id, topic_id) VALUES (1,1);
+INSERT INTO "belong_tos" (story_id, topic_id) VALUES (1,2);
 INSERT INTO "belong_tos" (story_id, topic_id) VALUES (2,1);
 INSERT INTO "belong_tos" (story_id, topic_id) VALUES (3,2);
 INSERT INTO "belong_tos" (story_id, topic_id) VALUES (4,2);
@@ -399,33 +401,33 @@ INSERT INTO "belong_tos" (story_id, topic_id) VALUES (23,12);
 INSERT INTO "belong_tos" (story_id, topic_id) VALUES (24,12);
 
 
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('What he do this time?',20,'2020-03-24',1,null,1);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('You dont know?',21,'2020-03-24',1,1,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Phasellus in tellus placerat, commodo ligula eu, tempor ante. Etiam.',14,'2020-03-24',1,null,2);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Donec mi purus, facilisis sit amet orci ac, semper efficitur.',25,'2020-03-24',1,null,3);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing.',3,'2020-03-24',1,4,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Donec non luctus risus, nec finibus nunc.',10,'2020-03-24',1,4,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Pellentesque pulvinar orci sed pellentesque vulputate. Fusce.',11,'2020-03-24',1,null,5);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nulla sit amet pharetra odio. Pellentesque suscipit.',31,'2020-03-24',1,null,5);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nulla blandit nunc sit amet leo auctor.',26,'2020-03-24',1,null,7);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Suspendisse potenti. In molestie iaculis ipsum, sed.',22,'2020-03-24',1,9,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('In vulputate velit sit amet nisi gravida.',19,'2020-03-24',1,10,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Sed eget dolor magna. Cras dapibus justo.',4,'2020-03-24',1,10,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Donec aliquam ipsum id risus convallis maximus.',7,'2020-03-24',1,null,9);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('In vel mollis arcu, in cursus risus.',7,'2020-03-24',1,null,9);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Integer consectetur metus in rhoncus aliquet. Integer.',21,'2020-03-24',1,null,9);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Mauris volutpat eros eu posuere vestibulum. Vivamus.',13,'2020-03-24',1,null,12);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nullam et lectus gravida, maximus magna sit.',17,'2020-03-24',1,16,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Fusce vel libero a leo ullamcorper interdum.',25,'2020-03-24',1,16,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Proin sed vulputate elit, a convallis nunc.',30,'2020-03-24',1,null,15);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Vestibulum ante ipsum primis in faucibus orci.',1,'2020-03-24',1,19,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Praesent tempor odio id tempus sodales. Nam.',9,'2020-03-24',1,null,18);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Sed convallis varius odio, lacinia egestas dui.',2,'2020-03-24',1,null,19);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Praesent eleifend urna et mauris sodales lacinia.',5,'2020-03-24',1,null,19);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Etiam rhoncus porta commodo. Praesent elementum diam.',15,'2020-03-24',1,null,21);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Curabitur feugiat mauris ut dolor fermentum imperdiet.',2,'2020-03-24',1,null,23);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nam tortor leo, bibendum at condimentum quis.',2,'2020-03-24',1,25,null);
-INSERT INTO "comment" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Aliquam sed dolor dui. Vestibulum condimentum lorem.',20,'2020-03-24',1,26,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('What he do this time?',20,'2020-03-24',1,null,1);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('You dont know?',21,'2020-03-24',1,1,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Phasellus in tellus placerat, commodo ligula eu, tempor ante. Etiam.',14,'2020-03-24',1,null,2);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Donec mi purus, facilisis sit amet orci ac, semper efficitur.',25,'2020-03-24',1,null,3);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing.',3,'2020-03-24',1,4,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Donec non luctus risus, nec finibus nunc.',10,'2020-03-24',1,4,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Pellentesque pulvinar orci sed pellentesque vulputate. Fusce.',11,'2020-03-24',1,null,5);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nulla sit amet pharetra odio. Pellentesque suscipit.',31,'2020-03-24',1,null,5);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nulla blandit nunc sit amet leo auctor.',26,'2020-03-24',1,null,7);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Suspendisse potenti. In molestie iaculis ipsum, sed.',22,'2020-03-24',1,9,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('In vulputate velit sit amet nisi gravida.',19,'2020-03-24',1,10,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Sed eget dolor magna. Cras dapibus justo.',4,'2020-03-24',1,10,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Donec aliquam ipsum id risus convallis maximus.',7,'2020-03-24',1,null,9);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('In vel mollis arcu, in cursus risus.',7,'2020-03-24',1,null,9);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Integer consectetur metus in rhoncus aliquet. Integer.',21,'2020-03-24',1,null,9);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Mauris volutpat eros eu posuere vestibulum. Vivamus.',13,'2020-03-24',1,null,12);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nullam et lectus gravida, maximus magna sit.',17,'2020-03-24',1,16,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Fusce vel libero a leo ullamcorper interdum.',25,'2020-03-24',1,16,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Proin sed vulputate elit, a convallis nunc.',30,'2020-03-24',1,null,15);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Vestibulum ante ipsum primis in faucibus orci.',1,'2020-03-24',1,19,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Praesent tempor odio id tempus sodales. Nam.',9,'2020-03-24',1,null,18);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Sed convallis varius odio, lacinia egestas dui.',2,'2020-03-24',1,null,19);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Praesent eleifend urna et mauris sodales lacinia.',5,'2020-03-24',1,null,19);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Etiam rhoncus porta commodo. Praesent elementum diam.',15,'2020-03-24',1,null,21);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Curabitur feugiat mauris ut dolor fermentum imperdiet.',2,'2020-03-24',1,null,23);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Nam tortor leo, bibendum at condimentum quis.',2,'2020-03-24',1,25,null);
+INSERT INTO "comments" (content,author_id,published_date,rating,comment_id,story_id) VALUES ('Aliquam sed dolor dui. Vestibulum condimentum lorem.',20,'2020-03-24',1,26,null);
 
 
 INSERT INTO "follows" (user_id,friend_id) VALUES (5,7);
@@ -549,33 +551,33 @@ INSERT INTO "rates_stories" (user_id, story_id, rating) VALUES (29,20,FALSE);
 INSERT INTO "rates_stories" (user_id, story_id, rating) VALUES (30,17,TRUE);
 
 
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,1,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (20,2,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (5,3,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,4,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (8,5,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (14,6,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (19,7,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,8,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (31,9,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (2,10,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (15,11,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (27,12,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (8,13,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (10,14,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (14,15,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (3,16,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (7,17,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (15,18,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (20,19,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (21,20,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (29,21,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (22,22,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (25,23,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (5,24,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (15,25,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (18,26,TRUE);
-INSERT INTO "rates_comment" (user_id, comment_id, rating) VALUES (10,27,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (21,1,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (20,2,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (5,3,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (21,4,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (8,5,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (14,6,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (19,7,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (21,8,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (31,9,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (2,10,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (15,11,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (27,12,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (8,13,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (10,14,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (14,15,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (3,16,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (7,17,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (15,18,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (20,19,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (21,20,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (29,21,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (22,22,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (25,23,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (5,24,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (15,25,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (18,26,TRUE);
+INSERT INTO "rates_comments" (user_id, comment_id, rating) VALUES (10,27,TRUE);
 
 
 INSERT INTO "report" (content,published_date,user_id,comment_id,story_id) VALUES ('Explicit content','2020-03-24',15,null,24);
