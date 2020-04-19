@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'Auth\LoginController@home');
+Route::get('/', function() {
+    return redirect('/topics/politics');
+});
 // Cards
 Route::get('cards', 'CardController@list');
 Route::get('cards/{id}', 'CardController@show');

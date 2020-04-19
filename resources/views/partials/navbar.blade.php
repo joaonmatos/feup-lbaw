@@ -57,7 +57,7 @@ function UserMenu() { ?>
         <a class="dropdown-item" href="/profile.php"><i class="fas fa-user mx-2"></i>Profile</a>
         <a class="dropdown-item" href="/settings.php"><i class="fas fa-cog mx-2"></i>Settings</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item text-danger" href=""><i class="fas fa-sign-out-alt mx-2"></i>Log Out</a>
+        <a class="dropdown-item text-danger" href="{{route('signout')}}"><i class="fas fa-sign-out-alt mx-2"></i>Sign Out</a>
     </div>
 </div>
 
@@ -66,8 +66,8 @@ function UserMenu() { ?>
 function SessionButtons() { ?>
 
 <form class="form-inline">
-    <a class="btn btn-outline-light mx-md-2" href="/signup.php">Sign Up</a>
-    <a class="btn btn-light mx-md-2" href="/signin.php">Sign In</a>
+    <a class="btn btn-outline-light mx-md-2" href="{{route('signup')}}">Sign Up</a>
+    <a class="btn btn-light mx-md-2" href="{{route('signin')}}">Sign In</a>
 </form>
 
 <?php } ?>
