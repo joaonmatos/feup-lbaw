@@ -25,11 +25,11 @@ Route::delete('api/item/{id}', 'ItemController@delete');
 
 // Authentication
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+Route::get('signin', 'Auth\LoginController@showLoginForm')->name('signin');
+Route::post('signin', 'Auth\LoginController@login');
+Route::get('signout', 'Auth\LoginController@logout')->name('signout');
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register');
 
 
 // Feeds - Topic

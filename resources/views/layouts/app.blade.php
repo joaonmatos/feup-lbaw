@@ -13,6 +13,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    @if (Route::currentRouteName() == 'signin' || Route::currentRouteName() == 'signup')
+    <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
+    @endif
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
@@ -24,7 +27,7 @@
         <script src="https://kit.fontawesome.com/0d5b08d93c.js" crossorigin="anonymous"></script>
   </head>
   <body>
-  @if (Route::currentRouteName() != 'login' && Route::currentRouteName() != 'register')
+  @if (Route::currentRouteName() != 'signin' && Route::currentRouteName() != 'signup')
     <header>
       @include('partials.navbar')
     </header>

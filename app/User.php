@@ -9,6 +9,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $rememberTokenName = false;
+
+    protected $table = 'member';
+
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
