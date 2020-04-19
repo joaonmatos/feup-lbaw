@@ -26,9 +26,9 @@
   <body>
   @if (Route::currentRouteName() != 'login' && Route::currentRouteName() != 'register')
     <header>
-      @include('partials.header')
+      @include('partials.navbar')
     </header>
-    <main>
+    <main class="container container-md my-4" id="feed">
     @else
     <main class="text-center flex-grow-1 d-flex flex-column justify-content-center">
     @endif

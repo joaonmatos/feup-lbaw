@@ -24,7 +24,7 @@ function NavMenu() {
 ?>
     <div class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-            <?= $startText = Auth::check() ? "Recommended" : "My"; $startText ?> Topics
+            <?= $startText = Auth::check() ? "My" : "Recommended"; $startText ?> Topics
         </a>
         <div class="dropdown-menu">
             <!-- Can this be improved? -->
