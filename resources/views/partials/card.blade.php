@@ -16,18 +16,18 @@
                   </small>
                   <small class="text-muted mx-2">
                       <i class="fas fa-clock mx-1"></i>
-                      {{ $story["published_date"] }} ago
+                      {{ $story["published_date"] }} <!--ago-->
                   </small>
                   <div class="flex-grow-1 text-right">
                       <!-- TODO: Display votes properly -->
                       {{-- {{ DisplayVotes(["score" => $story["rating"], "state" => 0]) }} --}}
                       <div id="card-voting-display">
                         <a class="btn btn-link text-muted">
-                            <i class="fas fa-arrow-up"></i></a>
+                            <i class="fas fa-arrow-up" onClick="vote({{$story['story_id']}}, 1)"></i></a>
                         </a>
-                        {{ $story["rating"] }}
+                            {{ $story["rating"] }}
                         <a class="btn btn-link text-muted">
-                            <i class="fas fa-arrow-down"></i></a>
+                            <i class="fas fa-arrow-down" onClick="vote({{$story['story_id']}}, -1)"></i></a>
                         </a>
                     </div>
                   </div>
