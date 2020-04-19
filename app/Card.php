@@ -23,3 +23,15 @@ class Card extends Model
     return $this->hasMany('App\Item');
   }
 }
+/*
+{
+  "id": "2",
+  "title": "Corona Virus is not a thing",
+  "url": "https://www.example.com/coronavirus_conspiracy",
+  "author_id": "523225",
+  "username": "fox_news",
+  "published_date": "2020-01-20 03:14:07",
+  "reality_check": "0.30",
+  "rating": "-4"
+}
+*/

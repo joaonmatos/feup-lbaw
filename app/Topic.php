@@ -16,10 +16,10 @@ class Topic extends Model
       'name',
   ];
 
-  /**
-   * The stories belonging to this topic.
-   */
-  public function stories() {
-    return $this->hasMany('App\Story');
-  }
+  // /**
+  //  * The stories belonging to this topic.
+  //  */
+  // public function belongs_to() {
+  //   return $this->hasMany('App\Story');
+  // }
 }

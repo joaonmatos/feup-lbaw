@@ -15,12 +15,12 @@ class Story extends Model
         'title', 'reality_check', 'rating',
     ];
 
-  /**
-   * The topics this story belongs to.
-   */
-  public function topic() {
-    return $this->hasMany('App\Topic');
-  }
+  // /**
+  //  * The topics this story belongs to.
+  //  */
+  // public function topic() {
+  //   return $this->hasMany('App\Topic');
+  // }
 
   /**
    * The member who posted this story.
