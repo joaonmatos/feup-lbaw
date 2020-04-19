@@ -31,7 +31,7 @@ DROP FUNCTION IF EXISTS check_password() CASCADE;
 CREATE TABLE member (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
-    name TEXT NOT NULL,
+    name TEXT,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     is_admin BOOLEAN NOT NULL
