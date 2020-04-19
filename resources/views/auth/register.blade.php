@@ -1,39 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="POST" action="{{ route('register') }}">
-    {{ csrf_field() }}
+<form class="form-signin text-center" method="POST" action="{{ route('signup') }}">
+  {{ csrf_field() }}
+  <h1 class="display-3 mb-3">
+    <a href="/" class="text-dark text-decoration-none">news.ly</a>
+  </h1>
+  <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>  Sign up with Facebook</a>
+  <div class="login-or">
+    <hr class="hr-or">
+    <span class="span-or">or</span>
+  </div>
 
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-    @if ($errors->has('name'))
-      <span class="error">
-          {{ $errors->first('name') }}
-      </span>
-    @endif
+  <label for="email" class="sr-only">Email address</label>
+  <input type="email" name="email" id="email" class="form-control firstInputForm" placeholder="Email address" value="{{old('email')}}" required autofocus>
+  <label for="username" class="sr-only">Username</label>
+  <input type="text" name="username" id="username" class="form-control middleInputForm" placeholder="Username" value="{{old('username')}}" required>
 
-    <label for="email">E-Mail Address</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-    @if ($errors->has('email'))
-      <span class="error">
-          {{ $errors->first('email') }}
-      </span>
-    @endif
+  <label for="password" class="sr-only ">password</label>
+  <input type="password" name="password" id="password" class="form-control middleInputForm" placeholder="Password" required>
 
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-      <span class="error">
-          {{ $errors->first('password') }}
-      </span>
-    @endif
+  <label for="password_confirmation" class="sr-only ">Confirm password</label>
+  <input type="password" name="password_confirmation" id="password_confirmation" class="form-control lastInputForm" placeholder="Confirm Password" required>
 
-    <label for="password-confirm">Confirm Password</label>
-    <input id="password-confirm" type="password" name="password_confirmation" required>
+  <!-- Add ref to terms of use here -->
+  <p class="terms-of-use">By signing up you accept our <a href="">Terms of Use</a>.
+  </p>
+  <button class="btn btn-lg btn-primary btn-block " type="submit">Sign up</button>
 
-    <button type="submit">
-      Register
-    </button>
-    <a class="button button-outline" href="{{ route('login') }}">Login</a>
+  <div class="text-center ">
 </form>
+
+
+<div class="text-center mt-2 ">
+  <!-- Change these hrefs after creating the subpages -->
+  <a href="/{{ route('signin') }}">Already have an account?</a>
+
+</div>
 @endsection
