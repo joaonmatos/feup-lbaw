@@ -1,3 +1,4 @@
+#   Source and instructions: https://git.fe.up.pt/lbaw/template-postgresql
 version: '3'
 services:
 
@@ -19,3 +20,4 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+
