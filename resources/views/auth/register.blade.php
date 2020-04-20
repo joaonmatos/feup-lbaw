@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="form-signin text-center" method="POST" action="{{ route('signup') }}">
+<form class="form-signin text-center" method="POST" action="{{ url('signup') }}">
   {{ csrf_field() }}
   <h1 class="display-3 mb-3">
     <a href="/" class="text-dark text-decoration-none">news.ly</a>
@@ -34,7 +34,7 @@
 
 <div class="text-center mt-2 ">
   <!-- Change these hrefs after creating the subpages -->
-  <a href="/{{ route('signin') }}">Already have an account?</a>
+  <a href="{{ url('signin') }}">Already have an account?</a>
 
 </div>
 @endsection
