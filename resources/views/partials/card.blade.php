@@ -53,7 +53,7 @@
                     
                     <span class="text-right flex-grow-1">
                         <?php for ($i = 0; $i < count($topics[$story['story_id']] ); $i++): ?>
-                            <a href="/topics/{{ $topics[$story['story_id']][$i]['topic_id'] }}" class={{"card-link" . ($i == 0 ? "" : "ml-2") }}>#{{ $topics[$story['story_id']][$i]['name'] }}</a>
+                            <a href="/topics/{{ $topics[$story['story_id']][$i]['name'] }}" class={{"card-link" . ($i == 0 ? "" : "ml-2") }}>#{{ $topics[$story['story_id']][$i]['name'] }}</a>
                         <?php endfor; ?>
                     </span>
                 </div>
