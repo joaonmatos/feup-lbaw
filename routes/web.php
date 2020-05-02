@@ -34,7 +34,10 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 
 // Feeds - Topic
-Route::get('/topics/{topicId}', 'Feed\TopicController@showTopicFeed');
+Route::get('/topics/{topic_id}', 'Feed\TopicController@showTopicFeed');
+
+// Stories
+Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories');
 
 // Vote story
 Route::put('api/vote', 'VoteController@create');
