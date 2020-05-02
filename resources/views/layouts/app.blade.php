@@ -8,7 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @if (Route::currentRouteName() == 'stories')
+      @yield('title')
+    @else
+      <title>{{ config('app.name', 'Laravel') }}</title>
+    @endif
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -16,8 +20,9 @@
     @if (Route::currentRouteName() == 'signin' || Route::currentRouteName() == 'signup')
     <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
     @endif
+
     <script type="text/javascript">
-        // Fix for Firefox autofocus CSS bug
+        // Fix for Firefox autofocus CSS bug (This bug was fixed in Firefox 60, 2 years ago, is it really necessary?)
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
     <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
@@ -27,13 +32,17 @@
         <script src="https://kit.fontawesome.com/0d5b08d93c.js" crossorigin="anonymous"></script>
   </head>
   <body>
-  @if (Route::currentRouteName() != 'signin' && Route::currentRouteName() != 'signup')
-    <header>
-      @include('partials.navbar')
-    </header>
-    <main class="container container-md my-4" id="feed">
+    @if (Route::currentRouteName() != 'signin' && Route::currentRouteName() != 'signup')
+      <header>
+        @include('partials.navbar')
+      </header>
+      @if (Route::currentRouteName() == 'stories')
+        <main class="container-lg my-4">
+      @else
+        <main class="container container-md my-4" id="feed">
+      @endif
     @else
-    <main class="text-center flex-grow-1 d-flex flex-column justify-content-center">
+      <main class="text-center flex-grow-1 d-flex flex-column justify-content-center">
     @endif
     
     <section id="content">
