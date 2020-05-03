@@ -6,7 +6,7 @@
   <h1 class="display-3 mb-3">
     <a href="/" class="text-dark text-decoration-none">news.ly</a>
   </h1>
-  <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>  Sign up with Facebook</a>
+  <a tabindex="0" class="btn btn-block btn-facebook text-light" role="button" data-toggle="popover" data-trigger="focus" data-content="Coming soon!"><i class="fab fa-facebook-f mx-1"></i> Sign up with Facebook</a>
   <div class="login-or">
     <hr class="hr-or">
     <span class="span-or">or</span>
@@ -26,6 +26,13 @@
   <!-- Add ref to terms of use here -->
   <p class="terms-of-use">By signing up you accept our <a href="">Terms of Use</a>.
   </p>
+  @if(count($errors))
+  <ul id="form-errors">
+    @foreach($errors->all() as $error)
+    <li class="text-danger text-italic">{{$error}}</li>
+    @endforeach
+  </ul>
+  @endif
   <button class="btn btn-lg btn-primary btn-block " type="submit">Sign up</button>
 
   <div class="text-center ">
