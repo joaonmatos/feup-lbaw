@@ -45,25 +45,20 @@
       </section>
     </main>
 
-    <section id="content">
-      @yield('content')
-    </section>
-  </main>
-
-  <footer class="my-5 pt-5 text-muted text-center text-small border-top">
-    <p class="mb-1">&copy;2020 news.ly</p>
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a href="/privacy.php">Privacy Policy</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="/terms-of-use.php">Terms of Use</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="/support.php">Support</a>
-      </li>
-    </ul>
-  </footer>
+    <footer class="my-5 pt-5 text-muted text-center text-small border-top">
+      <p class="mb-1">&copy;2020 news.ly</p>
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a href="/privacy.php">Privacy Policy</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="/terms-of-use.php">Terms of Use</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="/support.php">Support</a>
+        </li>
+      </ul>
+    </footer>
 
 </body>
 
