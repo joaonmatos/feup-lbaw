@@ -36,7 +36,7 @@
               <!-- Main content column -->
               <div class="container">
                 <h2 class="card-title">
-                    <a href="/story.php" class="text-dark">{{ $story["title"]}}</a>
+                    <a href="/stories/{{ $story['story_id'] }}" class="text-dark">{{ $story["title"]}}</a>
                 </h2>
                 {{-- <p class="card-text">{{ $description }}</p> --}}
                 <div class="text-muted d-flex">
@@ -45,7 +45,7 @@
                         {{ $story['url'] }}
                     </a>
                     
-                    <a href="/story.php#comments" class="card-link ml-2">
+                    <a href="/stories/{{ $story['story_id'] }}#comments" class="card-link ml-2">
                         <i class="fas fa-comments mx-1"></i>
                         {{ $comments[$story['story_id']] }}
                         {{ $comments == 1 ? "comment" : "comments" }}
