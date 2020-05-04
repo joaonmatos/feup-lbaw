@@ -25,7 +25,6 @@ class VoteController extends Controller
             ['user_id' => $user_id, 'story_id'=> $request['story_id'], 'rating' => $request['rating'] ]
         ]);
         
-        
         $response = array();
         $response['status'] = 200;
 

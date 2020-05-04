@@ -39,7 +39,7 @@
                 <div class="flex-grow-1">
                     {{-- Voting display --}}
                 </div>
-                <button type="button" class="btn btn-primary my-2 text-light">Comment</button>
+                <button type="button" class="btn btn-primary my-2 text-light"  onClick="commentStory({{$story['id']}})">Comment</button>
             </div>
         </div>
         

@@ -41,3 +41,6 @@ Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('
 
 // Vote story
 Route::put('api/vote', 'VoteController@create');
+
+//Comments
+Route::put('api/comment', 'CommentController@create');

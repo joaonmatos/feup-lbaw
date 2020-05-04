@@ -193,4 +193,25 @@ function vote(story_id, rating) {
     sendAjaxRequest('put', '/api/vote', request, voteHandler);
 }
 
+function commentHandler() {
+    if (this.status == 200) {
+        let response = JSON.parse(this.responseText);
+        window.location.reload();
+
+    }
+}
+
+function commentStory(story_id) {
+
+    let content = document.getElementById('writeComment').value;
+    console.log("content: " + content);
+    if (content) {
+        let request = { 'story_id': story_id, 'content': content };
+        sendAjaxRequest('put', '/api/comment', request, commentHandler);
+    } else {
+        alert("Comment should not be empty");
+    }
+}
+
+
 addEventListeners();
