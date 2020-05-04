@@ -26,7 +26,12 @@ Route::post('signup', 'Auth\RegisterController@register');
 Route::get('/topics/{topic_id}', 'Feed\TopicController@showTopicFeed');
 
 // Stories
-Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories');
+Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories')->where('story_id', '[0-9]+');
+Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-story-form');
+Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-action');
 
 // Vote story
 Route::put('api/vote', 'VoteController@create');
+
+//Comments
+Route::put('api/comment', 'CommentController@create');

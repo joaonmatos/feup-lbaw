@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class BelongTo extends Model
 {
 
+  public $incrementing = false;
+  protected $keyType = 'string';
+  protected $fillable = ['story_id', 'topic_id'];
+  public $timestamps = false;
+
   /**
    * The stories belonging to this topic.
    */
