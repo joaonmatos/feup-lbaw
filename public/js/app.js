@@ -20,22 +20,44 @@ function addHandlers() {
             upVoteButton.addEventListener('click', async () => {
                 const request = await fetch('/api/vote', {
                     method: 'PUT',
+                    credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json',
-                        Cookie: 'XSRF-TOKEN='+csrfToken
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
                     body: JSON.stringify({
                         'story_id': storyId,
                         rating: true
                     })
                 });
-                console.log(request);
-                const answer = await request.json();
-                rating.textContent = answer.rating;
-                upVoteButton.classList.remove('text-muted');
-                upVoteButton.classList.add('text-success');
-            })
-        })
+                if (request.status == 200) {
+                    const answer = await request.json();
+                    rating.textContent = answer.rating;
+                    upVoteButton.classList.remove('text-muted');
+                    upVoteButton.classList.add('text-success');
+                }
+            });
+            downVoteButton.addEventListener('click', async () => {
+                const request = await fetch('/api/vote', {
+                    method: 'PUT',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        'story_id': storyId,
+                        rating: true
+                    })
+                });
+                if (request.status == 200) {
+                    const answer = await request.json();
+                    rating.textContent = answer.rating;
+                    downVoteButton.classList.remove('text-muted');
+                    downVoteButton.classList.add('text-success');
+                }
+            });
+        });
 }
 
 addHandlers();
