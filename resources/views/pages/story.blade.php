@@ -19,6 +19,9 @@
         </div>
 
         <div>
+            @if ($show_delete)
+            <small class="mx-1"><a href="" class="text-muted">Remove Story</a></small>
+            @endif
             <small class="mx-1">
                 <a href="/users/{{ $story['username'] }}">
                     <i class="fas fa-user mx-1"></i>

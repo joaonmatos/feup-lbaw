@@ -43,7 +43,8 @@ class StoryController extends Controller
             ->get();
 
 
-        return view('pages.story', ['story' => $story[0], 'topics' => $story_topics, 'comments' => $comments]);
+        return view('pages.story', ['story' => $story[0], 'topics' => $story_topics, 'comments' => $comments,
+            'show_delete' => Auth::check() && (Auth::user()->is_admin == 'true' || $story[0]->author_id == Auth::user()->id )]);
     }
 
     protected function showNewStoryForm()
@@ -100,5 +101,22 @@ class StoryController extends Controller
         }
 
         return redirect(url('/stories/'.$story->id));
+    }
+
+    protected function removeStory($request) {
+        if (!Auth::check()) {
+            return redirect(url('/signin'));
+        }
+        $this->validate($request, [
+            'story_id' => 'required|exists:App\Story,id'
+        ]);
+        $user_id = Auth::user()->id;
+
+        $story = Story::find($request->story_id);
+        if (Auth::user()->is_admin == 'true' || $story->author_id = $user_id) {
+            $story->delete();
+            return redirect(url('/'));
+        }
+        return redirect(url('/stories/'.$request->story_id));
     }
 }
