@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Story;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    /**
-     * Creates a new card.
-     *
-     * @return Card The card created.
-     */
     public function create(Request $request)
     {
-
-        if (!Auth::check()) return [];
+        if (!Auth::check()) return response([], 401);
 
         $user_id = Auth::user()->id;
 
@@ -24,21 +19,11 @@ class VoteController extends Controller
         DB::table("rates_stories")->insert([
             ['user_id' => $user_id, 'story_id'=> $request['story_id'], 'rating' => $request['rating'] ]
         ]);
-        
-        
-        $response = array();
-        $response['status'] = 200;
 
-        return $response;
-    }
+        ;
+        $response = ["story" => $request->story_id,
+            "rating" => Story::find($request->story_id)->rating ];
 
-    public function delete(Request $request)
-    {
-      $card = Card::find($id);
-
-      $this->authorize('delete', $card);
-      $card->delete();
-
-      return $card;
+        return response($response, 200);
     }
 }
