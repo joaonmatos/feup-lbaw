@@ -5,7 +5,7 @@
     <h1 class="h3 text-primary mr-3" id=feed-title>
         {{ "Popular stories in #" . $topic_name }}
     </h1>
-    <a href="/new-story.php" class="btn btn-outline-primary mx-3">New Story</a>
+    <a href="{{route('new-story-form')}}" class="btn btn-outline-primary mx-3">New Story</a>
     <span class="small text-right flex-grow-1 ml-3">Sort by: </span>
     <div class="dropdown">
         <a class="dropdown-toggle mx-2 text-primary" data-toggle="dropdown">Hot</a>

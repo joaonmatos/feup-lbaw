@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
 
+  public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
