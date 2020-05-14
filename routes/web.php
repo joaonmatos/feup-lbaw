@@ -35,3 +35,6 @@ Route::put('api/vote', 'VoteController@create');
 
 //Comments
 Route::put('api/comment', 'CommentController@create');
+
+//Static Pages
+Route::view('/about', 'pages.about');
