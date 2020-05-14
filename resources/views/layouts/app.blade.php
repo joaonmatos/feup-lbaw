@@ -69,6 +69,9 @@
           <li class="list-inline-item">
             <a href="/support.php">Support</a>
           </li>
+          <li class="list-inline-item">
+            <a href="/about">About</a>
+          </li>
         </ul>
       </footer>
 
