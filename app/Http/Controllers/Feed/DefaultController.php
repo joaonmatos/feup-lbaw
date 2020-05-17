@@ -13,9 +13,8 @@ use App\Topic;
 class DefaultController extends Controller{
 
       /**
-     * Shows topic's feed
+     * Shows default feed
      *
-     * @param  $topic
      * @return Response
      */
     protected function showDefaultFeed()
