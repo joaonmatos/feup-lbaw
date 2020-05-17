@@ -20,7 +20,7 @@
 
         <div>
             @if ($show_delete)
-            <small class="mx-1"><a href="" class="text-muted">Remove Story</a></small>
+            <small class="mx-1"><a href="" class="text-muted" onClick="removeStory({{$story['id']}})">Remove Story</a></small>
             @endif
             <small class="mx-1">
                 <a href="/users/{{ $story['username'] }}">

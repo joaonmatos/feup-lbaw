@@ -213,5 +213,20 @@ function commentStory(story_id) {
     }
 }
 
+function removeStoryHandler() {
+    // if (this.status == 200) {
+    //     let response = JSON.parse(this.responseText);
+    //     // window.location.reload();
+    // }
+    console.log("ola");
+}
+
+function removeStory(story_id) {
+    console.log(story_id);
+    let request = { 'story_id': story_id };
+    sendAjaxRequest('delete', '/api/remove_story', request, removeStoryHandler);
+    // alert("Comment should not be empty");
+}
+
 
 addEventListeners();
