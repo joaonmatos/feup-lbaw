@@ -11,7 +11,6 @@
 |
 */
 
-Route::redirect('/', '/topics/politics');
 
 // Authentication
 
@@ -24,6 +23,9 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 // Feeds - Topic
 Route::get('/topics/{topic_id}', 'Feed\TopicController@showTopicFeed');
+
+// Feeds - Default
+Route::get('/', 'Feed\DefaultController@showDefaultFeed');
 
 // Stories
 Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories')->where('story_id', '[0-9]+');
