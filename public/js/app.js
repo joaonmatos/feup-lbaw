@@ -1,3 +1,21 @@
+function sendAjaxRequest(method, url, data, handler) {
+    let request = new XMLHttpRequest();
+
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.addEventListener('load', handler);
+    request.send(encodeForAjax(data));
+}
+
+function encodeForAjax(data) {
+    if (data == null) return null;
+    return Object.keys(data).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
+}
+
+
 function addHandlers() {
     const readCookie = name => {
         var nameEQ = name + "=";
@@ -58,6 +76,26 @@ function addHandlers() {
                 }
             });
         });
+}
+
+function commentHandler() {
+    if (this.status == 200) {
+        let response = JSON.parse(this.responseText);
+        window.location.reload();
+
+    }
+}
+
+function commentStory(story_id) {
+
+    let content = document.getElementById('writeComment').value;
+    console.log("content: " + content);
+    if (content) {
+        let request = { 'story_id': story_id, 'content': content };
+        sendAjaxRequest('put', '/api/comment', request, commentHandler);
+    } else {
+        alert("Comment should not be empty");
+    }
 }
 
 addHandlers();
