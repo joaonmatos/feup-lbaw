@@ -17,7 +17,7 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-  {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+  <link href="{{ asset('css/print.css') }}" media="print" rel="stylesheet" >
   @if (Route::currentRouteName() == 'signin' || Route::currentRouteName() == 'signup')
   <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
   @endif
@@ -59,15 +59,15 @@
 
       <footer class="my-5 pt-5 text-muted text-center text-small border-top">
         <p class="mb-1">&copy;2020 news.ly</p>
-        <ul class="list-inline">
+        <ul class="list-inline print-hide">
           <li class="list-inline-item">
-            <a href="/privacy.php">Privacy Policy</a>
+            <a href="#">Privacy Policy</a>
           </li>
           <li class="list-inline-item">
-            <a href="/terms-of-use.php">Terms of Use</a>
+            <a href="#">Terms of Use</a>
           </li>
           <li class="list-inline-item">
-            <a href="/support.php">Support</a>
+            <a href="#">Support</a>
           </li>
           <li class="list-inline-item">
             <a href="/about">About</a>
