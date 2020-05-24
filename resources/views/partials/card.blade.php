@@ -16,7 +16,29 @@
                     </small>
                     <small class="text-muted mx-2">
                         <i class="fas fa-clock mx-1"></i>
-                        {{ $story["published_date"] }}
+                        @php 
+                            $date = $story['published_date'];
+                            $timestamp = strtotime($date);
+
+                            $str_time = array("second", "minute", "hour", "day", "month", "year");
+                            $length = array("60", "60", "24", "30", "12", "10");
+
+                            $currentTime = time();
+                            if ($currentTime >= $timestamp) {
+                                $diff = time()- $timestamp;
+                                for ($i = 0; $diff >= $length[$i] && $i < count($length) - 1; $i++) {
+                                    $diff = $diff / $length[$i];
+                                }
+
+                                $diff = round($diff);
+                                if ($diff == 1) {
+                                    echo $diff . " " . $str_time[$i] . "ago";
+                                } else {
+                                    echo $diff . " " . $str_time[$i] . "s ago";
+                                }
+                            }
+        
+                        @endphp
                         <!--ago-->
                     </small>
                     <div class="flex-grow-1 text-right voting-section" data-story-id="{{$story['story_id']}}">
