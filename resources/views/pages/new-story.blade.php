@@ -15,22 +15,22 @@
         </div>
         @endif
         <div class="my-2">
-            <label for="title" class="h3">Title</label>
-            </br>
+            <label data-toggle="tooltip" data-placement="right" title="Insert a title for the story" for="title" class="h3">Title</label>
+            <br>
             <input type="text" name="title" id="title" value="{{ old('title') }}">
         </div>
         <div class="my-2">
-            <label for="link" class="h3">Link</label>
-            </br>
+            <label data-toggle="tooltip" data-placement="right" title="Insert a link to the original story" for="link" class="h3">Link</label>
+            <br>
             <input type="url" name="link" id="link" value="{{ old('link') }}">
         </div>
         <div class="my-2">
-            <span class="h3">Topics</span>
-            </br>
+            <span data-toggle="tooltip" data-placement="right" title="Insert at most 3 topics for this story" class="h3">Topics</span>
+            <br>
             <input type="text" name="topic1" id="topic1" class="my-1" value="{{ old('topic1') }}">
-            </br>
+            <br>
             <input type="text" name="topic2" id="topic2" class="my-1" value="{{ old('topic2') }}">
-            </br>
+            <br>
             <input type="text" name="topic3" id="topic3" class="my-1" value="{{ old('topic3') }}">
         </div>
         <button type="submit" class="btn btn-primary my-2">Post Story</button>

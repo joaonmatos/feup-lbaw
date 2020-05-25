@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
 

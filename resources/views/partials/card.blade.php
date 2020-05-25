@@ -11,11 +11,12 @@
                     <small class="mx-2">
                         <a href="/profile.php" class="card-link">
                             <i class="fas fa-user mx-1"></i>
-                            {{ $story["username"]}}
+                            <span data-toggle="tooltip" title="View user profile">{{ $story["username"]}}</span>
                         </a>
                     </small>
                     <small class="text-muted mx-2">
                         <i class="fas fa-clock mx-1"></i>
+                        <span data-toggle="tooltip" title="Published on {{ strftime('%G-%m-%d', strtotime($story['published_date'])) }}">
                         @php 
                             $date = $story['published_date'];
                             $timestamp = strtotime($date);
@@ -37,18 +38,17 @@
                                     echo $diff . " " . $str_time[$i] . "s ago";
                                 }
                             }
-        
                         @endphp
-                        <!--ago-->
+                        </span>
                     </small>
                     <div class="flex-grow-1 text-right voting-section" data-story-id="{{$story['story_id']}}">
                         <div id="card-voting-display">
                             <a class="btn btn-link text-muted upvote">
-                                <i class="fas fa-arrow-up"></i></a>
+                                <span data-toggle="tooltip" title="Upvote"><i class="fas fa-arrow-up"></i></span></a>
                             </a>
-                            <span>{{ $story["rating"] }}</span>
+                            <span data-toggle="tooltip" title="Story rating">{{ $story["rating"] }}</span>
                             <a class="btn btn-link text-muted downvote">
-                                <i class="fas fa-arrow-down"></i></a>
+                                <span data-toggle="tooltip" title="Downvote &nbsp; Do not use this button just because you don't like the post, use it only if the content is irrelevant to the topic."><i class="fas fa-arrow-down"></i></span></a>
                             </a>
                         </div>
                     </div>
