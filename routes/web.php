@@ -27,6 +27,9 @@ Route::get('/topics/{topic_id}', 'Feed\TopicController@showTopicFeed');
 // Feeds - Default
 Route::get('/', 'Feed\DefaultController@showDefaultFeed');
 
+// Feeds - Search
+Route::get('/feed/{search_query}', 'Feed\SearchController@showSearchFeed');
+
 // Stories
 Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories')->where('story_id', '[0-9]+');
 Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-story-form');
