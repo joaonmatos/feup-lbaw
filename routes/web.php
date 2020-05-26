@@ -35,8 +35,14 @@ Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-acti
 // Vote story
 Route::put('api/vote', 'VoteController@create');
 
-//Comments
+// Comments
 Route::put('api/comment', 'CommentController@create');
 
-//Static Pages
+// Static Pages
 Route::view('/about', 'pages.about');
+
+// Settings
+Route::get('settings', 'Settings\SettingsController@show')->name('settings');
+Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password-form');
+
+

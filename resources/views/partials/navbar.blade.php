@@ -51,11 +51,11 @@ function SearchForm() { ?>
 function UserMenu() { ?>
 <div class="nav-item dropdown active">
     <a class="nav-link dropdown-toggle text-light px-0 px-md-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-        {{-- {{ Auth::getUser()->name }} --}}
+        {{ Auth::getUser()->name }}
     </a>
     <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="/profile.php"><i class="fas fa-user mx-2"></i>Profile</a>
-        <a class="dropdown-item" href="/settings.php"><i class="fas fa-cog mx-2"></i>Settings</a>
+        <a class="dropdown-item" href="/settings"><i class="fas fa-cog mx-2"></i>Settings</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item text-danger" href="{{route('signout')}}"><i class="fas fa-sign-out-alt mx-2"></i>Sign Out</a>
     </div>
