@@ -42,7 +42,6 @@ Route::put('api/comment', 'CommentController@create');
 Route::view('/about', 'pages.about');
 
 // Settings
-Route::get('settings', 'Settings\SettingsController@show')->name('settings');
-Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password-form');
-
-
+Route::get('settings', 'Settings\SettingsController@show')->name('settings-page');
+Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password');
+Route::post('settings/password','Settings\SettingsController@changePasswordAction')->name('change-password');

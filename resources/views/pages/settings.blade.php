@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-10"><p>Password</p></div>
-        <div class="col-auto"><a href="{{route('change-password-form')}}">Edit</a></div>
+        <div class="col-auto"><a href="{{route('change-password')}}">Edit</a></div>
     </div>
     @endif
     
