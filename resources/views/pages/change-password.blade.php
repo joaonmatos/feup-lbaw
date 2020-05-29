@@ -3,22 +3,15 @@
 @section('content')
 
 <h3 class="mb-4">
-    <a href="/" class="text-dark text-decoration-none">Change Password</a>
+    Change Password
 </h3>
 
 <form class="form-signin text-center" method="POST" action="{{route('change-password')}}">
     {{ csrf_field() }}
-    @if(count($errors))
-
-	<div class="alert alert-danger">
-		<strong>Whoops!</strong> There were some problems with your input.
-		<br/>
-		<ul>
-			@foreach($errors->all() as $error)
-			<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
+    @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
     @endif
 
     <label for="password" class="sr-only">New Password</label>

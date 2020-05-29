@@ -6,7 +6,6 @@
 
     <div class="collapse navbar-collapse" id="navbar-content">
         <div class="navbar-nav mr-auto">
-            <a class="nav-link active" href="/all.php">All Stories</a>
             {{ NavMenu() }}
         </div>
         {{ SearchForm() }}
@@ -51,7 +50,7 @@ function SearchForm() { ?>
 function UserMenu() { ?>
 <div class="nav-item dropdown active">
     <a class="nav-link dropdown-toggle text-light px-0 px-md-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-        {{ Auth::getUser()->name }}
+        {{ Auth::getUser()->username }}
     </a>
     <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="/profile.php"><i class="fas fa-user mx-2"></i>Profile</a>
