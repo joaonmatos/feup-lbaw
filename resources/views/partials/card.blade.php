@@ -9,7 +9,7 @@
             <div class="d-flex flex-column">
                 <div class="container d-flex my-2 align-items-center">
                     <small class="mx-2">
-                        <a href="/profile.php" class="card-link">
+                        <a href="/users/{{ $story['username'] }}" class="card-link">
                             <i class="fas fa-user mx-1"></i>
                             <span data-toggle="tooltip" title="View user profile">{{ $story["username"]}}</span>
                         </a>
