@@ -4,16 +4,17 @@
 
 <div>
 
+
     <header class="row">
         <div class="col-md-8">
             <h1 class="display-2">{{ $username }}</h3>
         </div>
         <div class="col-md-4 text-right">
             <div class="my-2">
-                <span class="mx-2">0 followers</span>
-                <span class="mx-2">0 following</span>
+                <span class="mx-2">{{ count($followers) }} @if(count($followers) == 1) follower @else followers @endif</span>
+                <span class="mx-2">{{ count($following) }} following</span>
             </div>
-            
+           
         </div>
     </header>
 

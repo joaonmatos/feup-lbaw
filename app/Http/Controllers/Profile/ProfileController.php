@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
 use App\BelongTo;
 use App\Story;
 use App\Comment;
@@ -21,6 +20,11 @@ class ProfileController extends Controller
 {
     public function showProfile($username)
     {
+        //$user_id = User::select('id')->where('username', '=', $username);
+
+        $following = DB::table('follows')->join('member', 'member.id', '=', 'follows.user_id')->where('member.username', $username)->get();
+
+        $followers = DB::table('follows')->join('member', 'member.id', '=', 'follows.friend_id')->where('member.username', $username)->get();
         
         $comments = Comment::select('content', 'author_id', 'published_date', 'username', 'story_id')
         ->join('member', 'author_id', '=', 'member.id')
@@ -32,6 +36,8 @@ class ProfileController extends Controller
         ->join('member', 'author_id', '=', 'member.id')  
         ->where('member.username', '=', $username)
         ->get();
+
+        
 
         $user_story_topics = array();
         $user_story_comments = array();
@@ -46,7 +52,8 @@ class ProfileController extends Controller
             $user_story_comments[$story['story_id']] = $number_comments;
         }   
 
-        return view('pages.profile', ['username' => $username, 'comments' => $comments, 'stories' => $stories, 'story_topics' => $user_story_topics, 'story_comments' => $user_story_comments]);
+        
+        return view('pages.profile', ['username' => $username, 'following' => $following, 'followers' => $followers, 'comments' => $comments, 'stories' => $stories, 'story_topics' => $user_story_topics, 'story_comments' => $user_story_comments]);
     }
 
    
