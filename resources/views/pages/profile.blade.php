@@ -4,7 +4,6 @@
 
 <div>
 
-
     <header class="row">
         <div class="col-md-8">
             <h1 class="display-2">{{ $username }}</h3>
@@ -14,7 +13,15 @@
                 <span class="mx-2">{{ count($followers) }} @if(count($followers) == 1) follower @else followers @endif</span>
                 <span class="mx-2">{{ count($following) }} following</span>
             </div>
-           
+            @if(Auth::check())
+                @if(strcmp(Auth::getUser()->username, $username) != 0)
+                    @if($is_follower)
+                    <a href="" class="btn btn-primary mx-3 ">Unfollow</a>
+                    @else
+                    <a href="" class="btn btn-primary mx-3 ">Follow</a>
+                    @endif
+                @endif
+            @endif
         </div>
     </header>
 

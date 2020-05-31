@@ -20,11 +20,12 @@ class ProfileController extends Controller
 {
     public function showProfile($username)
     {
-        //$user_id = User::select('id')->where('username', '=', $username);
 
-        $following = DB::table('follows')->join('member', 'member.id', '=', 'follows.user_id')->where('member.username', $username)->get();
+        $user = DB::table('member')->where('username', '=', $username)->get();
 
-        $followers = DB::table('follows')->join('member', 'member.id', '=', 'follows.friend_id')->where('member.username', $username)->get();
+        $following = DB::table('follows')->where('user_id', $user[0]->id)->get();
+
+        $followers = DB::table('follows')->where('friend_id', $user[0]->id)->get();
         
         $comments = Comment::select('content', 'author_id', 'published_date', 'username', 'story_id')
         ->join('member', 'author_id', '=', 'member.id')
@@ -52,11 +53,20 @@ class ProfileController extends Controller
             $user_story_comments[$story['story_id']] = $number_comments;
         }   
 
+        // checks if the authenticated user follows the user whose profile he is checking
+        $is_follower = false; 
+
+        if(Auth::check())
+        {
+            if(strcmp($username, Auth::getuser()->username) != 0)
+            {
+                $is_follower = DB::table('follows')->where([['user_id', Auth::getUser()->id],['friend_id', $user[0]->id]])->exists();
+            }
+        }
         
-        return view('pages.profile', ['username' => $username, 'following' => $following, 'followers' => $followers, 'comments' => $comments, 'stories' => $stories, 'story_topics' => $user_story_topics, 'story_comments' => $user_story_comments]);
+        return view('pages.profile', ['username' => $username, 'following' => $following, 'followers' => $followers, 'is_follower' => $is_follower, 'comments' => $comments, 'stories' => $stories, 'story_topics' => $user_story_topics, 'story_comments' => $user_story_comments]);
     }
 
-   
-
+    
 
 }
