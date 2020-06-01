@@ -53,7 +53,7 @@ function UserMenu() { ?>
         {{ Auth::getUser()->username }}
     </a>
     <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="/profile.php"><i class="fas fa-user mx-2"></i>Profile</a>
+        <a class="dropdown-item" href="/users/{{ Auth::getUser()->username }}"><i class="fas fa-user mx-2"></i>Profile</a>
         <a class="dropdown-item" href="{{route('settings-page')}}"><i class="fas fa-cog mx-2"></i>Settings</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item text-danger" href="{{route('signout')}}"><i class="fas fa-sign-out-alt mx-2"></i>Sign Out</a>

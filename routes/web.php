@@ -48,3 +48,8 @@ Route::get('settings', 'Settings\SettingsController@show')->name('settings-page'
 Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password');
 Route::post('settings/password','Settings\SettingsController@changePasswordAction')->name('change-password');
 Route::post('settings','Settings\SettingsController@deleteAccountAction')->name('delete-account');
+
+// Profile
+Route::get('/users/{username}', 'Profile\ProfileController@showProfile');
+Route::post('/users/{username}/follow', 'Profile\ProfileController@followProfile');
+Route::post('/users/{username}/unfollow', 'Profile\ProfileController@unfollowProfile');
