@@ -46,7 +46,7 @@
                             <a class="btn btn-link text-muted upvote">
                                 <span data-toggle="tooltip" title="Upvote"><i class="fas fa-arrow-up"></i></span></a>
                             </a>
-                            <span data-toggle="tooltip" title="Story rating">{{ $story["rating"] }}</span>
+                            <span data-toggle="tooltip" title="Story rating" class="rating">{{ $story["rating"] }}</span>
                             <a class="btn btn-link text-muted downvote">
                                 <span data-toggle="tooltip" title="Downvote &nbsp; Do not use this button just because you don't like the post, use it only if the content is irrelevant to the topic."><i class="fas fa-arrow-down"></i></span></a>
                             </a>

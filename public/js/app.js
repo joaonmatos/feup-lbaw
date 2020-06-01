@@ -19,67 +19,115 @@ function encodeForAjax(data) {
     }).join('&');
 }
 
+async function makeFetch(resource, init = {}) {
+    const csrf = document.querySelector('meta[name="csrf-token"]').content;
+    if (!init.headers)
+        init.headers = {'X-CSRF-TOKEN': csrf};
+    else
+        init.headers['X-CSRF-TOKEN'] = csrf;
+    init.credentials = 'same-origin';
+    return await fetch(resource, init);
+}
+
+function updateVotes(state, upVoteButton, downVoteButton) {
+    if (state.vote === undefined) {
+        upVoteButton.classList.remove('text-success');
+        upVoteButton.classList.add('text-muted');
+        downVoteButton.classList.remove('text-info');
+        downVoteButton.classList.add('text-muted');
+    }
+    else if (state.vote == 'true') {
+        upVoteButton.classList.add('text-success');
+        upVoteButton.classList.remove('text-muted');
+        downVoteButton.classList.remove('text-info');
+        downVoteButton.classList.add('text-muted');
+    }
+    else {
+        upVoteButton.classList.remove('text-success');
+        upVoteButton.classList.add('text-muted');
+        downVoteButton.classList.add('text-info');
+        downVoteButton.classList.remove('text-muted');
+    }
+}
+
+async function initVotingSection(section) {
+    const storyId = section.dataset.storyId;
+    const upVoteButton = section.querySelector('.upvote');
+    const rating = section.querySelector('.rating');
+    const downVoteButton = section.querySelector('.downvote');
+    const state = {};
+    /*
+    const response = await makeFetch(`/api/stories/${storyId}/rate`, {method: 'GET'});
+    if (response.status == 200) {
+        console.log('123');
+        const vote = await response.json();
+        state.vote = vote.vote;
+        updateVotes(state, upVoteButton, downVoteButton);
+    };
+    */
+    upVoteButton.addEventListener('click', async () => {
+        if (state.vote != 'true') {
+            const request = await makeFetch(`/api/stories/${storyId}/rate`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({rating: true})
+            });
+            if (request.status == 200) {
+                const answer = await request.json();
+                rating.textContent = answer.rating;
+                state.vote = 'true';
+                updateVotes(state, upVoteButton, downVoteButton);
+            }
+        }
+        else {
+            const request = await makeFetch(`/api/stories/${storyId}/rate`, {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (request.status == 200) {
+                const answer = await request.json();
+                rating.textContent = answer.rating;
+                state.vote = undefined;
+                updateVotes(state, upVoteButton, downVoteButton);
+            }
+        }
+    });
+
+    downVoteButton.addEventListener('click', async () => {
+        if (state.vote != 'false') {
+            console.log('clicked downvote with no downvote');
+            const request = await makeFetch(`/api/stories/${storyId}/rate`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({rating: false})
+            });
+            console.log(request);
+            if (request.status == 200) {
+                const answer = await request.json();
+                rating.textContent = answer.rating;
+                state.vote = 'false';
+                updateVotes(state, upVoteButton, downVoteButton);
+            }
+        }
+        else {
+            const request = await makeFetch(`/api/stories/${storyId}/rate`, {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (request.status == 200) {
+                const answer = await request.json();
+                rating.textContent = answer.rating;
+                state.vote = undefined;
+                updateVotes(state, upVoteButton, downVoteButton);
+            }
+        }
+    });
+
+}
+
 
 function addHandlers() {
-    const readCookie = name => {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    };
-
-    const csrfToken = readCookie('XSRF-TOKEN');
-    document.querySelectorAll('.voting-section')
-        .forEach((section) => {
-            const storyId = section.dataset.storyId;
-            const upVoteButton = section.querySelector('.upvote');
-            const rating = section.querySelector('span');
-            const downVoteButton = section.querySelector('.downvote');
-            upVoteButton.addEventListener('click', async () => {
-                const request = await fetch('/api/vote', {
-                    method: 'PUT',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        'story_id': storyId,
-                        rating: true
-                    })
-                });
-                if (request.status == 200) {
-                    const answer = await request.json();
-                    rating.textContent = answer.rating;
-                    upVoteButton.classList.remove('text-muted');
-                    upVoteButton.classList.add('text-success');
-                }
-            });
-            downVoteButton.addEventListener('click', async () => {
-                const request = await fetch('/api/vote', {
-                    method: 'PUT',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        'story_id': storyId,
-                        rating: true
-                    })
-                });
-                if (request.status == 200) {
-                    const answer = await request.json();
-                    rating.textContent = answer.rating;
-                    downVoteButton.classList.remove('text-muted');
-                    downVoteButton.classList.add('text-success');
-                }
-            });
-        });
+    document.querySelectorAll('.voting-section').forEach(section => initVotingSection(section));
 }
 
 function commentHandler() {
