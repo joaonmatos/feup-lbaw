@@ -242,6 +242,27 @@ CREATE TRIGGER update_rating
     FOR EACH ROW
     EXECUTE PROCEDURE update_rating();
 
+-- TRIGGERXX
+CREATE FUNCTION remove_rating() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF OLD.rating IS FALSE THEN
+        UPDATE stories
+        SET rating = rating + 1 WHERE OLD.story_id = stories.id;
+    ELSIF OLD.rating IS TRUE THEN
+        UPDATE stories
+        SET rating = rating - 1 WHERE OLD.story_id = stories.id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER remove_rating
+    AFTER DELETE ON rates_stories
+    FOR EACH ROW
+    EXECUTE PROCEDURE remove_rating();
+
 
 -- TRIGGER05
 CREATE FUNCTION check_stories_cardinality() RETURNS TRIGGER AS
