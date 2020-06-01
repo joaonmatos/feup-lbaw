@@ -56,15 +56,16 @@ async function initVotingSection(section) {
     const rating = section.querySelector('.rating');
     const downVoteButton = section.querySelector('.downvote');
     const state = {};
-    /*
+    
     const response = await makeFetch(`/api/stories/${storyId}/rate`, {method: 'GET'});
+    console.log(response);
     if (response.status == 200) {
         console.log('123');
         const vote = await response.json();
         state.vote = vote.vote;
         updateVotes(state, upVoteButton, downVoteButton);
     };
-    */
+    
     upVoteButton.addEventListener('click', async () => {
         if (state.vote != 'true') {
             const request = await makeFetch(`/api/stories/${storyId}/rate`, {

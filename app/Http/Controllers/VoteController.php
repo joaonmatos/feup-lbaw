@@ -45,14 +45,14 @@ class VoteController extends Controller
     public function getVote($story_id)
     {
         if (!Auth::check()) return response([], 401);
-        
         $user_id = Auth::user()->id;
+        
         $vote = DB::table("rates_stories")->whereRaw(
             'user_id = ? and story_id = ?',
             [$user_id, $story_id]
         )->first();
         if (!$vote) return response([], 404);
-
+        
         $response = ["vote" => $vote->rating];
         return response($response, 200);
     }
