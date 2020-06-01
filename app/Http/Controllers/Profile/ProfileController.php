@@ -67,6 +67,24 @@ class ProfileController extends Controller
         return view('pages.profile', ['username' => $username, 'following' => $following, 'followers' => $followers, 'is_follower' => $is_follower, 'comments' => $comments, 'stories' => $stories, 'story_topics' => $user_story_topics, 'story_comments' => $user_story_comments]);
     }
 
-    
+    public function followProfile($username)
+    {
+        $user = DB::table('member')->where('username', '=', $username)->get();
+
+        if(Auth::check())
+            DB::table('follows')->insert(['user_id' => Auth::getUser()->id, 'friend_id' => $user[0]->id]);
+
+        return redirect('users/'.$username);
+    }
+
+    public function unfollowProfile($username)
+    {
+        $user = DB::table('member')->where('username', '=', $username)->get();
+
+        if(Auth::check())
+            DB::table('follows')->where([['user_id', '=', Auth::getUser()->id], ['friend_id', '=', $user[0]->id]])->delete();
+
+        return redirect('users/'.$username);
+    }
 
 }

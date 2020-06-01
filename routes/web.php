@@ -49,3 +49,5 @@ Route::post('settings','Settings\SettingsController@deleteAccountAction')->name(
 
 // Profile
 Route::get('/users/{username}', 'Profile\ProfileController@showProfile');
+Route::post('/users/{username}/follow', 'Profile\profileController@followProfile');
+Route::post('/users/{username}/unfollow', 'Profile\profileController@unfollowProfile');

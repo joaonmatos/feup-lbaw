@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('content')
 
 <div>
@@ -16,9 +18,15 @@
             @if(Auth::check())
                 @if(strcmp(Auth::getUser()->username, $username) != 0)
                     @if($is_follower)
-                    <a href="" class="btn btn-primary mx-3 ">Unfollow</a>
+                    <form class="form-signin" method="POST" action="/users/{{$username}}/unfollow">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-primary mt-1">Unfollow</button>
+                    </form>
                     @else
-                    <a href="" class="btn btn-primary mx-3 ">Follow</a>
+                    <form class="form-signin" method="POST" action="/users/{{$username}}/follow">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-primary mt-1">Follow</button>
+                    </form>
                     @endif
                 @endif
             @endif
