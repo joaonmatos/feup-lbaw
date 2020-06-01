@@ -172,7 +172,7 @@ $BODY$
 LANGUAGE PLPGSQL;
 
 CREATE TRIGGER check_comments_rate
-    BEFORE INSERT OR UPDATE ON rates_comments
+    BEFORE INSERT ON rates_comments
     FOR EACH ROW
     EXECUTE PROCEDURE check_comments_rate();
 
@@ -192,13 +192,13 @@ $BODY$
 LANGUAGE PLPGSQL;
 
 CREATE TRIGGER check_stories_rate
-    BEFORE INSERT OR UPDATE ON rates_stories
+    BEFORE INSERT ON rates_stories
     FOR EACH ROW
     EXECUTE PROCEDURE check_stories_rate();
 
 
 -- TRIGGER03
-CREATE FUNCTION insert_rating() RETURNS TRIGGER AS
+CREATE FUNCTION insert_story_rating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF NEW.rating IS TRUE THEN
@@ -213,14 +213,14 @@ END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_rating
+CREATE TRIGGER insert_story_rating
     AFTER INSERT ON rates_stories
     FOR EACH ROW
-    EXECUTE PROCEDURE insert_rating();
+    EXECUTE PROCEDURE insert_story_rating();
 
 
 -- TRIGGER04
-CREATE FUNCTION update_rating() RETURNS TRIGGER AS
+CREATE FUNCTION update_story_rating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF NEW.rating IS TRUE AND OLD.rating IS FALSE THEN
@@ -237,13 +237,13 @@ END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER update_rating
+CREATE TRIGGER update_story_rating
     AFTER UPDATE ON rates_stories
     FOR EACH ROW
-    EXECUTE PROCEDURE update_rating();
+    EXECUTE PROCEDURE update_story_rating();
 
 -- TRIGGERXX
-CREATE FUNCTION remove_rating() RETURNS TRIGGER AS
+CREATE FUNCTION remove_story_rating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF OLD.rating IS FALSE THEN
@@ -261,7 +261,7 @@ LANGUAGE plpgsql;
 CREATE TRIGGER remove_rating
     AFTER DELETE ON rates_stories
     FOR EACH ROW
-    EXECUTE PROCEDURE remove_rating();
+    EXECUTE PROCEDURE remove_story_rating();
 
 
 -- TRIGGER05
