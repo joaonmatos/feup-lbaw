@@ -33,7 +33,9 @@ Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-
 Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-action');
 
 // Vote story
-Route::put('api/vote', 'VoteController@create');
+Route::put('api/stories/{story_id}/rate', 'VoteController@vote');
+Route::delete('api/stories/{story_id}/rate', 'VoteController@removeVote');
+Route::get('api/stories/{story_id}/rate', 'VoteController@getVote');
 
 // Comments
 Route::put('api/comment', 'CommentController@create');

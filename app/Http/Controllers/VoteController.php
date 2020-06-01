@@ -9,21 +9,51 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    public function create(Request $request)
+    public function vote(Request $request, $story_id)
     {
         if (!Auth::check()) return response([], 401);
 
         $user_id = Auth::user()->id;
 
 
-        DB::table("rates_stories")->insert([
-            ['user_id' => $user_id, 'story_id'=> $request['story_id'], 'rating' => $request['rating'] ]
-        ]);
+        DB::table("rates_stories")->updateOrInsert(
+            ['user_id' => $user_id, 'story_id' => $story_id],
+            ['rating' => $request['rating']]
+        );
 
-        ;
-        $response = ["story" => $request->story_id,
-            "rating" => Story::find($request->story_id)->rating ];
+        $response = ["story" => $story_id,
+            "rating" => Story::find($story_id)->rating ];
 
+        return response($response, 200);
+    }
+
+    public function removeVote($story_id)
+    {
+        if (!Auth::check()) return response([], 401);
+        
+        $user_id = Auth::user()->id;
+        DB::table("rates_stories")->whereRaw(
+            'user_id = ? and story_id = ?',
+            [$user_id, $story_id]
+        )->delete();
+
+        $response = ["story" => $story_id,
+            "rating" => Story::find($story_id)->rating ];
+        return response($response, 200);
+    }
+
+    public function getVote($story_id)
+    {
+        if (!Auth::check()) return response([], 401);
+        $user_id = Auth::user()->id;
+        
+        $vote = DB::table("rates_stories")->whereRaw(
+            'user_id = ? and story_id = ?',
+            [$user_id, $story_id]
+        )->first();
+        if (!$vote) return response([], 404);
+        
+        $response = ["vote" => $vote->rating];
         return response($response, 200);
     }
 }
