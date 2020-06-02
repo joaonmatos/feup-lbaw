@@ -24,6 +24,8 @@ Route::post('signup', 'Auth\RegisterController@register');
 // Feeds - Topic
 Route::get('/topics', 'Feed\TopicController@showAllTopics');
 Route::get('/topics/{topic_id}', 'Feed\TopicController@showTopicFeed');
+Route::post('/topics/{topic_id}/follow', 'Feed\TopicController@followTopic');
+Route::post('/topics/{topic_id}/unfollow', 'Feed\TopicController@unfollowTopic');
 
 // Feeds - Default
 Route::get('/', 'Feed\DefaultController@showDefaultFeed');

@@ -14,6 +14,32 @@ use App\FollowTopic;
 
 class TopicController extends Controller
 {
+    public function followTopic($topic_name)
+    {
+        if (Auth::check()) {
+            $topic_id = Topic::select('id')->whereName($topic_name)->get()[0]["id"];
+
+            DB::table('follow_topics')
+                ->insert(['user_id' => Auth::getUser()->id, 'topic_id' => $topic_id]);
+
+            return redirect('topics/');
+        }
+        
+        return redirect('/');
+    }
+
+    public function unfollowTopic($topic_name)
+    {
+        if (Auth::check()) {
+            $topic_id = Topic::select('id')->whereName($topic_name)->get()[0]["id"];
+
+            FollowTopic::find([Auth::getUser()->id, $topic_id])->delete();
+
+            return redirect('topics/');
+        }
+        
+        return redirect('/');
+    }
 
     protected function showAllTopics() 
     {
