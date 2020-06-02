@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Feed;
 use App\BelongTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 use App\Story;
 use App\Comment;
@@ -18,10 +19,10 @@ class SearchController extends Controller{
      * @param  $topic
      * @return Response
      */
-    protected function showSearchFeed($search_query)
+    protected function showSearchFeed(Request $request)
     {
 
-        // TODO: What if topic_id doesn't exist
+        $search_query = $request->query('query');
    
         $stories = Story::select('story_id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'topic_id', 'url')
                     ->join('belong_tos', 'id', '=', 'belong_tos.story_id') 
