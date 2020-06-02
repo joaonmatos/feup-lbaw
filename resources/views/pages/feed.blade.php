@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+<title>Feed for #{{ $topic_name }} - {{ config('app.name', 'Laravel') }}</title>
+@endsection
+
 @section('content')
 <header class="container d-flex mb-3 align-items-center">
     <h1 class="h3 text-primary mr-3" id=feed-title>

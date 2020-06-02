@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+<title>Sign In - {{ config('app.name', 'Laravel') }}</title>
+@endsection
+
 @section('content')
 <form class="form-signin text-center" method="POST" action="{{ url('signin') }}">
     {{ csrf_field() }}

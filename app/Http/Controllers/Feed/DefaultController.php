@@ -39,6 +39,6 @@ class DefaultController extends Controller{
             $comments[$story['story_id']] = $number_comments;
         }   
 
-        return view('pages.feed', ['topic_name' => "NEWS.LY", 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
+        return view('pages.feed', ['topic_name' => 'news.ly', 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
     }
 }

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+<title>Change Password - {{ config('app.name', 'Laravel') }}</title>
+@endsection
+
 @section('content')
 
 <h3 class="mb-4">

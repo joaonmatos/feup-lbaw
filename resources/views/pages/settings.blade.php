@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title')
+<title>Settings - {{ config('app.name', 'Laravel') }}</title>
+@endsection
 
+@section('content')
 <section id="settings" class="container mt-4 mb-4">
     @if (session('error'))
     <div class="alert alert-danger">
