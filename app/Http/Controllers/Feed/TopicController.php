@@ -9,10 +9,24 @@ use Illuminate\Support\Facades\DB;
 use App\Story;
 use App\Comment;
 use App\Topic;
+use App\FollowTopic;
 
-class TopicController extends Controller{
+class TopicController extends Controller
+{
 
-      /**
+    protected function showAllTopics() 
+    {
+        $followed = FollowTopic::select('topics.name')
+            ->join('topics', 'topics.id', '=', 'topic_id')
+            ->join('member', 'member.id', '=', 'user_id')
+            ->pluck('name');
+
+        $diff = Topic::select('name')->pluck('name')->diff($followed)->all();
+        
+        return view('pages.topics', ['followed' => $followed, 'other_topics' => $diff]);
+    }
+
+    /**
      * Shows topic's feed
      *
      * @param  $topic
