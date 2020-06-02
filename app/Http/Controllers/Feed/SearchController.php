@@ -27,8 +27,10 @@ class SearchController extends Controller{
         $stories = Story::select('story_id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'topic_id', 'url')
                     ->join('belong_tos', 'id', '=', 'belong_tos.story_id') 
                     ->join('member', 'author_id', '=', 'member.id')  
-                    ->where('title', 'LIKE', '%'.$search_query.'%')
-                    ->orderBy('rating', 'desc')
+                    ->whereRaw("title @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orWhereRaw("url @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orWhereRaw("username @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orderByRaw("ts_rank(to_tsvector(title), plainto_tsquery('english', ?)) DESC", [$search_query])
                     ->get();
         
         $topics = array();
