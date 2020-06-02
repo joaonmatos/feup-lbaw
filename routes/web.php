@@ -36,10 +36,23 @@ Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-
 Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-action');
 
 // Vote story
-Route::put('api/vote', 'VoteController@create');
+Route::put('api/stories/{story_id}/rate', 'VoteController@vote');
+Route::delete('api/stories/{story_id}/rate', 'VoteController@removeVote');
+Route::get('api/stories/{story_id}/rate', 'VoteController@getVote');
 
-//Comments
+// Comments
 Route::put('api/comment', 'CommentController@create');
 
-//Static Pages
+// Static Pages
 Route::view('/about', 'pages.about');
+
+// Settings
+Route::get('settings', 'Settings\SettingsController@show')->name('settings-page');
+Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password');
+Route::post('settings/password','Settings\SettingsController@changePasswordAction')->name('change-password');
+Route::post('settings','Settings\SettingsController@deleteAccountAction')->name('delete-account');
+
+// Profile
+Route::get('/users/{username}', 'Profile\ProfileController@showProfile');
+Route::post('/users/{username}/follow', 'Profile\ProfileController@followProfile');
+Route::post('/users/{username}/unfollow', 'Profile\ProfileController@unfollowProfile');

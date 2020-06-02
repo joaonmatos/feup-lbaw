@@ -9,11 +9,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  @if (Route::currentRouteName() == 'stories')
   @yield('title')
-  @else
-  <title>{{ config('app.name', 'Laravel') }}</title>
-  @endif
 
   <!-- Styles -->
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -70,7 +66,7 @@
             <a href="#">Support</a>
           </li>
           <li class="list-inline-item">
-            <a href="/about">About</a>
+            <a href="/about">About Us</a>
           </li>
         </ul>
       </footer>
