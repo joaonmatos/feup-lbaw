@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 
+@section('title')
+<title>{{ $username }}'s Profile - {{ config('app.name', 'Laravel') }}</title>
+@endsection
 
 @section('content')
-
 <div>
-
     <header class="row">
         <div class="col-md-8">
             <h1 class="display-2">{{ $username }}</h3>
@@ -48,41 +49,31 @@
             @foreach ($stories as $story)
                 @include('partials.card', ['story' => $story, 'comments' => $story_comments, 'topics' => $story_topics])
             @endforeach
-
-            </div>
-
-            <div class="tab-pane fade" id="profileComments" role="tabpanel" aria-labelledby="profile-comments">
-             
-             
-                <div>
-                    @for ($i = 0; $i < count($comments); $i++) 
-                    <div class="card card-body mb-2">
-                        <div class="d-inline-block mb-2">
-                            <small class="mx-1">
-                                <a href="/users/{{ $comments[$i]['username'] }}">
-                                    <i class="fas fa-user mr-1"></i>
-                                    <?= $comments[$i]["username"] ?>
-                                </a>
-                            </small>
-                            <small class="text-muted">
-                                <i class="fas fa-clock mx-1"></i>
-                                <?= $comments[$i]["published_date"] ?> ago
-                            </small>
-                        </div>
-                        <?= $comments[$i]["content"] ?>
-                        <div class="d-flex justify-content-end print-hide">
-                            <button class="btn btn-outline-primary px-4">Reply</a>
-                        </div>
+    </div>
+        <div class="tab-pane fade" id="profileComments" role="tabpanel" aria-labelledby="profile-comments">             
+            <div>
+                @for ($i = 0; $i < count($comments); $i++) 
+                <div class="card card-body mb-2">
+                    <div class="d-inline-block mb-2">
+                        <small class="mx-1">
+                            <a href="/users/{{ $comments[$i]['username'] }}">
+                                <i class="fas fa-user mr-1"></i>
+                                <?= $comments[$i]["username"] ?>
+                            </a>
+                        </small>
+                        <small class="text-muted">
+                            <i class="fas fa-clock mx-1"></i>
+                            <?= $comments[$i]["published_date"] ?> ago
+                        </small>
                     </div>
-                    @endfor
+                    <?= $comments[$i]["content"] ?>
+                    <div class="d-flex justify-content-end print-hide">
+                        <button class="btn btn-outline-primary px-4">Reply</a>
+                    </div>
                 </div>
-            
-            
-            </div>
+                @endfor
+            </div>  
         </div>
-
-    
-
+    </div>
 </div>
-
 @endsection

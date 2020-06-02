@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title')
+<title>About Us - {{ config('app.name', 'Laravel') }}</title>
+@endsection
 
+@section('content')
 <section id="about" class="container mt-4 mb-4 ">
-    <h1>About</h1>
+    <h1>About Us</h1>
     <hr>
     <section id="description" class="mb-4 row">
             <div class="col-sm-6">
-                <h2 class="mb-2">About News.ly</h2>
                 <p>News.ly is your hub for all information.</p>
                 <p>Follow your favourite topic, stay up to date with the latest news, curate your own feed, post new stories to the platform, rate stories and interact with the community on the comment section.</p>
                 <p>Leveraging the community and the power of the internet, news.ly is the ultimate news platform on the web.</p>
@@ -64,5 +66,4 @@
 
     </section>
 </section>
-
 @endsection

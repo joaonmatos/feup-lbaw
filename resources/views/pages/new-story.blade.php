@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+<title>Submit new story - {{ config('app.name', 'Laravel') }}</title>
+@endsection
+
 @section('content')
 <h1 class="text-primary">New Story</h1>
 <div class="row">
