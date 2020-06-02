@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Feed;
 use App\BelongTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Story;
 use App\Comment;
@@ -16,6 +17,8 @@ class TopicController extends Controller
 
     protected function showAllTopics() 
     {
+        if (!Auth::check()) return redirect('/');
+
         $followed = FollowTopic::select('topics.name')
             ->join('topics', 'topics.id', '=', 'topic_id')
             ->join('member', 'member.id', '=', 'user_id')
