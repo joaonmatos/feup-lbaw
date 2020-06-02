@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-<title>All Topics - {{ config('app.name', 'Laravel') }}</title>
+<title>Manage Your Topics - {{ config('app.name', 'Laravel') }}</title>
 @endsection
 
 @section('content')
