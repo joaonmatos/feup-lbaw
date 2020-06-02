@@ -6,6 +6,7 @@
 
 @section('content')
 
+<p>Topics you are following</p>
 <table>
     @foreach ($followed as $topic)
     <tr>
@@ -16,7 +17,12 @@
         </form></td>
     <tr>
     @endforeach
+</table>
 
+<br/>
+
+<p>Other Topics</p>
+<table>
     @foreach ($other_topics as $topic)
     <tr>
         <td><a href="/topics/{{ $topic }}">#{{ $topic }}</a></td>
