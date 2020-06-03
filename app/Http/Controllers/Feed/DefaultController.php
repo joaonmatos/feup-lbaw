@@ -56,6 +56,7 @@ class DefaultController extends Controller{
         $vars['stories'] = $stories;
         $vars['topics'] = $topics;
         $vars['comments'] = $comments;
+        $vars['search'] = false;
 
         return view('pages.feed', $vars);
     }
