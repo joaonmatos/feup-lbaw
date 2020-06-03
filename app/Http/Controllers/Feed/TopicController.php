@@ -33,8 +33,7 @@ class TopicController extends Controller
         if (Auth::check()) {
             $topic_id = Topic::select('id')->whereName($topic_name)->get()[0]["id"];
 
-            FollowTopic::find([Auth::getUser()->id, $topic_id])->delete();
-
+            DB::table('follow_topics')->where([['user_id', '=', Auth::getUser()->id], ['topic_id', '=', $topic_id]])->delete();
             return redirect('topics/');
         }
         

@@ -28,11 +28,11 @@ function NavMenu() {
         <div class="dropdown-menu">
             <!-- Can this be improved? -->
             <span class="dropdown-item text-muted mx-2"><?= $startText ?> Topics</span>
-    
+            
             <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic1</a>
             <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic2</a>
             <a class="dropdown-item" href="/topic.php"><i class="fas fa-hashtag mx-2 text-muted"></i>topic3</a>
-            <a href="/manage-topics.php" class="dropdown-item text-muted"><i class="fas fa-ellipsis-h mx-2"></i>See All</a>
+            <a href="/topics" class="dropdown-item text-muted"><i class="fas fa-ellipsis-h mx-2"></i>See All</a>
         </div>
     </div>
 <?php
