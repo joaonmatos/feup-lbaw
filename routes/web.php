@@ -22,7 +22,10 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 
 // Feeds - Topic
+Route::get('/topics', 'Feed\TopicController@showAllTopics');
 Route::get('/topics/{topic_id}', 'Feed\TopicController@showTopicFeed');
+Route::post('/topics/{topic_id}/follow', 'Feed\TopicController@followTopic');
+Route::post('/topics/{topic_id}/unfollow', 'Feed\TopicController@unfollowTopic');
 
 // Feeds - Default
 Route::get('/', 'Feed\DefaultController@showDefaultFeed');
@@ -48,9 +51,9 @@ Route::view('/about', 'pages.about');
 
 // Settings
 Route::get('settings', 'Settings\SettingsController@show')->name('settings-page');
+Route::post('settings','Settings\SettingsController@deleteAccountAction')->name('delete-account');
 Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password');
 Route::post('settings/password','Settings\SettingsController@changePasswordAction')->name('change-password');
-Route::post('settings','Settings\SettingsController@deleteAccountAction')->name('delete-account');
 
 // Profile
 Route::get('/users/{username}', 'Profile\ProfileController@showProfile');
