@@ -56,6 +56,8 @@ class StoryController extends Controller
 
     protected function postStory(Request $request)
     {
+        if (!Auth::check()) return response('User must sign in to access this resource.', 401);
+
         $this->validate($request, [
             'title' => 'required|max:140',
             'link' => 'required|active_url',
@@ -106,7 +108,7 @@ class StoryController extends Controller
     }
 
     protected function delete($story_id) {
-        Auth::check();
+        if (!Auth::check()) return response('User must sign in to access this resource.', 401);
 
         $story = Story::find($story_id);
         Gate::authorize('delete', $story);

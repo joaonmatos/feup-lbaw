@@ -14,7 +14,7 @@
   <!-- Styles -->
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/print.css') }}" media="print" rel="stylesheet" >
-  @if (Route::currentRouteName() == 'signin' || Route::currentRouteName() == 'signup')
+  @if (Route::currentRouteName() == 'login' || Route::currentRouteName() == 'signup')
   <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
   @endif
 
@@ -35,7 +35,7 @@
 </head>
 
 <body>
-  @if (Route::currentRouteName() != 'signin' && Route::currentRouteName() != 'signup')
+  @if (Route::currentRouteName() != 'login' && Route::currentRouteName() != 'signup')
   <header>
     @include('partials.navbar')
   </header>
