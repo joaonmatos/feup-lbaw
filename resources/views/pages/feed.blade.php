@@ -28,7 +28,7 @@
     @if ($search)
         <form action="/action_page.php" class="form-container">
             <div class="dropdown">
-                <a class="dropdown-toggle mx-2 text-primary" data-toggle="dropdown">Today</a>
+                <a class="dropdown-toggle mx-2 text-primary" data-toggle="dropdown">{{app('request')->input('time_filter') ? app('request')->input('time_filter') : 'all-time' }}</a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="advanced-search?query={{app('request')->input('query')}}&time_filter=today">Today</a>
                     <a class="dropdown-item" href="advanced-search?query={{app('request')->input('query')}}&time_filter=last-week">Last Week</a>
