@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
 @section('title')
-<title>Feed for #{{ $topic_name }} - {{ config('app.name', 'Laravel') }}</title>
+<title>
+@php
+    if (isset($logged_in) && $logged_in) {
+        echo "User feed - " . config('app.name', 'Laravel');
+    } else {
+        echo "Feed for #" .  $topic_name . " - " . config('app.name', 'Laravel');
+    }
+@endphp
+</title>
 @endsection
 
 @section('content')

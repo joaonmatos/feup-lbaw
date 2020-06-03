@@ -13,11 +13,15 @@ DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS stories CASCADE;
 DROP TABLE IF EXISTS topics CASCADE;
 DROP TABLE IF EXISTS member CASCADE;
+DROP TABLE IF EXISTS follow_topics CASCADE;
 
 DROP FUNCTION IF EXISTS check_comments_rate() CASCADE;
 DROP FUNCTION IF EXISTS check_stories_rate() CASCADE;
 DROP FUNCTION IF EXISTS update_rating() CASCADE;
 DROP FUNCTION IF EXISTS insert_rating() CASCADE;
+DROP FUNCTION IF EXISTS insert_story_rating() CASCADE;
+DROP FUNCTION IF EXISTS update_story_rating() CASCADE;
+DROP FUNCTION IF EXISTS remove_story_rating() CASCADE;
 DROP FUNCTION IF EXISTS check_stories_cardinality() CASCADE;
 DROP FUNCTION IF EXISTS check_expert_cardinality() CASCADE;
 DROP FUNCTION IF EXISTS check_password() CASCADE;
@@ -126,6 +130,13 @@ CREATE TABLE report(
     constraint only_one_value 
         check (        (story_id is null or comment_id is null) 
                and not (story_id is null and comment_id is null) )
+);
+
+-- R12
+CREATE TABLE follow_topics(
+    user_id INTEGER REFERENCES member(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    topic_id INTEGER REFERENCES topics(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    PRIMARY KEY(user_id, topic_id)
 );
 
 ---------------------------------
@@ -606,3 +617,7 @@ INSERT INTO "report" (content,published_date,user_id,comment_id,story_id) VALUES
 INSERT INTO "report" (content,published_date,user_id,comment_id,story_id) VALUES ('Inappropriate language','2020-03-24',20,13,null);
 INSERT INTO "report" (content,published_date,user_id,comment_id,story_id) VALUES ('Inappropriate language','2020-03-24',20,14,null);
 INSERT INTO "report" (content,published_date,user_id,comment_id,story_id) VALUES ('Agressive','2020-03-24',30,null,8);
+
+INSERT INTO "follow_topics" (topic_id, user_id) values (1,1);
+INSERT INTO "follow_topics" (topic_id, user_id) values (2,1);
+INSERT INTO "follow_topics" (topic_id, user_id) values (3,1);

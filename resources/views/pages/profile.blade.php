@@ -63,7 +63,33 @@
                         </small>
                         <small class="text-muted">
                             <i class="fas fa-clock mx-1"></i>
-                            <?= $comments[$i]["published_date"] ?> ago
+
+                            <span data-toggle="tooltip" title="Published on {{ strftime('%G-%m-%d', strtotime($comments[$i]['published_date'])) }}">
+                                @php 
+                                    $date = $comments[$i]['published_date'];
+                                    $timestamp = strtotime($date);
+        
+                                    $str_time = array("second", "minute", "hour", "day", "month", "year");
+                                    $length = array("60", "60", "24", "30", "12", "10");
+        
+                                    $currentTime = time();
+                                    if ($currentTime >= $timestamp) {
+                                        $diff = time()- $timestamp;
+                                        for ($j = 0; $diff >= $length[$j] && $j < count($length) - 1; $j++) {
+                                            $diff = $diff / $length[$j];
+                                        }
+        
+                                        $diff = round($diff);
+                                        if ($diff == 1) {
+                                            echo $diff . " " . $str_time[$j] . "ago";
+                                        } else {
+                                            echo $diff . " " . $str_time[$j] . "s ago";
+                                        }
+                                    
+                                    }
+                                @endphp
+                                </span>
+
                         </small>
                     </div>
                     <?= $comments[$i]["content"] ?>

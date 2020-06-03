@@ -5,15 +5,57 @@ namespace App\Http\Controllers\Feed;
 use App\BelongTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 Use Exception;
 
 use App\Story;
 use App\Comment;
 use App\Topic;
+use App\FollowTopic;
 
-class TopicController extends Controller{
+class TopicController extends Controller
+{
+    public function followTopic($topic_name)
+    {
+        if (Auth::check()) {
+            $topic_id = Topic::select('id')->whereName($topic_name)->get()[0]["id"];
 
-      /**
+            DB::table('follow_topics')
+                ->insert(['user_id' => Auth::getUser()->id, 'topic_id' => $topic_id]);
+
+            return redirect('topics/');
+        }
+        
+        return redirect('/');
+    }
+
+    public function unfollowTopic($topic_name)
+    {
+        if (Auth::check()) {
+            $topic_id = Topic::select('id')->whereName($topic_name)->get()[0]["id"];
+
+            DB::table('follow_topics')->where([['user_id', '=', Auth::getUser()->id], ['topic_id', '=', $topic_id]])->delete();
+            return redirect('topics/');
+        }
+        
+        return redirect('/');
+    }
+
+    protected function showAllTopics() 
+    {
+        if (!Auth::check()) return redirect('/');
+
+        $followed = FollowTopic::select('topics.name')
+            ->join('topics', 'topics.id', '=', 'topic_id')
+            ->join('member', 'member.id', '=', 'user_id')
+            ->pluck('name');
+
+        $diff = Topic::select('name')->pluck('name')->diff($followed)->all();
+        
+        return view('pages.topics', ['followed' => $followed, 'other_topics' => $diff]);
+    }
+
+    /**
      * Shows topic's feed
      *
      * @param  $topic

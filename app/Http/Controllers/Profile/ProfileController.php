@@ -4,16 +4,11 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use App\BelongTo;
 use App\Story;
 use App\Comment;
-use App\User;
 
 
 class ProfileController extends Controller
@@ -39,7 +34,6 @@ class ProfileController extends Controller
         ->get();
 
         
-
         $user_story_topics = array();
         $user_story_comments = array();
         foreach ($stories as $story) {
