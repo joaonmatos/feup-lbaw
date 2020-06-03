@@ -46,6 +46,6 @@ class SearchController extends Controller{
             $comments[$story['story_id']] = $number_comments;
         }   
 
-        return view('pages.feed', ['topic_name' => $search_query, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
+        return view('pages.feed', ['search' => true, 'topic_name' => NULL, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
     }
 }
