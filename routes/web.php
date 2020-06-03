@@ -37,6 +37,7 @@ Route::get('/search', 'Feed\SearchController@showSearchFeed')->name('search');
 Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories')->where('story_id', '[0-9]+');
 Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-story-form');
 Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-action');
+Route::delete('/stories/{story_id}', 'Story\StoryController@delete')->where('story_id', '[0-9]+');
 
 // Vote story
 Route::put('api/stories/{story_id}/rate', 'VoteController@vote');

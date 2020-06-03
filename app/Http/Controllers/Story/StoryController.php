@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Story;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\BelongTo;
 use App\Story;
@@ -30,7 +31,7 @@ class StoryController extends Controller
         $story = Story::select('stories.id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'url')
             ->join('member', 'author_id', '=', 'member.id')
             ->where('stories.id', '=', $story_id)
-            ->get();
+            ->firstOrFail();
 
         $story_topics = BelongTo::select('topic_id', 'topics.name')
             ->join('topics', 'topic_id', '=', 'topics.id')
@@ -42,8 +43,10 @@ class StoryController extends Controller
             ->whereStoryId($story_id)
             ->get();
 
+        $can_delete = Gate::allows('delete', $story);
 
-        return view('pages.story', ['story' => $story[0], 'topics' => $story_topics, 'comments' => $comments]);
+
+        return view('pages.story', ['story' => $story, 'topics' => $story_topics, 'comments' => $comments, 'can_delete' => $can_delete]);
     }
 
     protected function showNewStoryForm()
@@ -100,5 +103,15 @@ class StoryController extends Controller
         }
 
         return redirect(url('/stories/'.$story->id));
+    }
+
+    protected function delete($story_id) {
+        Auth::check();
+
+        $story = Story::find($story_id);
+        Gate::authorize('delete', $story);
+
+        $story->delete();
+        redirect(url('/'));
     }
 }
