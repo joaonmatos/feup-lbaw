@@ -42,7 +42,7 @@ class LoginController extends Controller
     }
 
     public function home() {
-        return redirect('signin');
+        return redirect('login');
     }
 
 }

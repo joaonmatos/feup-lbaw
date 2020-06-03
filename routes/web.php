@@ -14,7 +14,7 @@
 
 // Authentication
 
-Route::get('signin', 'Auth\LoginController@showLoginForm')->name('signin');
+Route::get('signin', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('signin', 'Auth\LoginController@login');
 Route::get('signout', 'Auth\LoginController@logout')->name('signout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -35,8 +35,8 @@ Route::get('/search', 'Feed\SearchController@showSearchFeed')->name('search');
 
 // Stories
 Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories')->where('story_id', '[0-9]+');
-Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-story-form');
-Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-action');
+Route::get('/stories/new', 'Story\StoryController@showNewStoryForm')->name('new-story-form')->middleware('auth');
+Route::post('/stories', 'Story\StoryController@postStory')->name('new-story-action')->middleware('auth');
 Route::delete('/stories/{story_id}', 'Story\StoryController@delete')->where('story_id', '[0-9]+');
 
 // Vote story
@@ -51,9 +51,9 @@ Route::put('api/comment', 'CommentController@create');
 Route::view('/about', 'pages.about');
 
 // Settings
-Route::get('settings', 'Settings\SettingsController@show')->name('settings-page');
-Route::post('settings','Settings\SettingsController@deleteAccountAction')->name('delete-account');
-Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password');
+Route::get('settings', 'Settings\SettingsController@show')->name('settings-page')->middleware('auth');
+Route::post('settings','Settings\SettingsController@deleteAccountAction')->name('delete-account')->middleware('auth');
+Route::get('settings/password', 'Settings\SettingsController@changePasswordForm')->name('change-password')->middleware('auth');
 Route::post('settings/password','Settings\SettingsController@changePasswordAction')->name('change-password');
 
 // Profile

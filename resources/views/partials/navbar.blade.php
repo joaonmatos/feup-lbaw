@@ -66,7 +66,7 @@ function SessionButtons() { ?>
 
 <form class="form-inline">
     <a class="btn btn-outline-light mx-md-2" href="{{route('signup')}}">Sign Up</a>
-    <a class="btn btn-light mx-md-2" href="{{route('signin')}}">Sign In</a>
+    <a class="btn btn-light mx-md-2" href="{{route('login')}}">Sign In</a>
 </form>
 
 <?php } ?>
