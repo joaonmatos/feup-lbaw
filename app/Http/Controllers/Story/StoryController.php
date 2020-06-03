@@ -31,7 +31,7 @@ class StoryController extends Controller
         $story = Story::select('stories.id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'url')
             ->join('member', 'author_id', '=', 'member.id')
             ->where('stories.id', '=', $story_id)
-            ->first();
+            ->firstOrFail();
 
         $story_topics = BelongTo::select('topic_id', 'topics.name')
             ->join('topics', 'topic_id', '=', 'topics.id')
