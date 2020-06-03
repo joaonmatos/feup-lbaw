@@ -61,7 +61,7 @@
                     </h2>
                     {{-- <p class="card-text">{{ $description }}</p> --}}
                     <div class="text-muted d-flex">
-                        <a href="https://example.com/" class="card-link">
+                        <a href="{{$story['url']}}" class="card-link">
                             <i class="fas fa-external-link-alt mx-1"></i>
                             {{ $story['url'] }}
                         </a>
