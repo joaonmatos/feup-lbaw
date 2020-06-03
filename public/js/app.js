@@ -73,6 +73,8 @@ function renderNewStoryForm(state, form) {
         topic2.after(warning);
       }
     }
+    else if (topic2Warning) topics.removeChild(topic2Warning);
+
     if (state.topic3) {
       if (topic3Warning) topic3Warning.textContent = state.topic3;
       else {
@@ -83,6 +85,8 @@ function renderNewStoryForm(state, form) {
         topic3.after(warning);
       }
     }
+    else if (topic3Warning) topics.removeChild(topic3Warning);
+
     submit.setAttribute("disabled", "true");
   }
 }
@@ -107,7 +111,8 @@ function initNewStoryForm(form) {
       } else {
         state.topic2 = undefined;
       }
-    }
+    } else state.topic2 = undefined;
+
     if (topic3.value.length > 0) {
       if (topic3.value == topic2.value) {
         ok = false;
@@ -131,7 +136,8 @@ function initNewStoryForm(form) {
       } else {
         state.topic3 = state.topic3 ? state.topic3 : undefined;
       }
-    }
+    } else state.topic3 = undefined;
+    
     state.ok = ok;
     renderNewStoryForm(state, form);
   };
