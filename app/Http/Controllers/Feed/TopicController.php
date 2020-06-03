@@ -46,9 +46,9 @@ class TopicController extends Controller{
                 $comments[$story['story_id']] = $number_comments;
             }   
 
-            return view('pages.feed', ['topic_name' => $topic_name, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
+            return view('pages.feed', ['search' => false, 'topic_name' => $topic_name, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
         } catch(Exception $ex){ 
-            return view('pages.feed', ['topic_name' => $topic_name, 'stories' => [], 'topics' => [], 'comments' => []]);
+            return view('pages.feed', ['search' => false, 'topic_name' => $topic_name, 'stories' => [], 'topics' => [], 'comments' => []]);
         }
     }
 }

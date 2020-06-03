@@ -5,25 +5,32 @@ namespace App\Http\Controllers\Feed;
 use App\BelongTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 use App\Story;
 use App\Comment;
 use App\Topic;
 
-class DefaultController extends Controller{
+class SearchController extends Controller{
 
       /**
-     * Shows default feed
+     * Shows result of a search
      *
+     * @param  $request ->query 
      * @return Response
      */
-    protected function showDefaultFeed()
+    protected function showSearchFeed(Request $request)
     {
 
-        $stories = Story::select('story_id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'topic_id', 'url', DB::raw('rating/(extract(day from (NOW()-published_date)*86400)+0.0000001) as priority'))
+        $search_query = $request->query('query');
+   
+        $stories = Story::select('story_id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'topic_id', 'url')
                     ->join('belong_tos', 'id', '=', 'belong_tos.story_id') 
                     ->join('member', 'author_id', '=', 'member.id')  
-                    ->orderBy('priority', 'desc')
+                    ->whereRaw("title @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orWhereRaw("url @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orWhereRaw("username @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orderByRaw("ts_rank(to_tsvector(title), plainto_tsquery('english', ?)) DESC", [$search_query])
                     ->get();
         
         $topics = array();
@@ -39,6 +46,6 @@ class DefaultController extends Controller{
             $comments[$story['story_id']] = $number_comments;
         }   
 
-        return view('pages.feed', ['search' => false, 'topic_name' => 'news.ly', 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
+        return view('pages.feed', ['search' => true, 'topic_name' => NULL, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
     }
 }

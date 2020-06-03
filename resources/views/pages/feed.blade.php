@@ -7,7 +7,11 @@
 @section('content')
 <header class="container d-flex mb-3 align-items-center">
     <h1 class="h3 text-primary mr-3" id=feed-title>
-        {{ "Popular stories in #" . $topic_name }}
+        @if ($search)
+            {{ "Search Results" }}
+        @else
+            {{ "Popular stories in #" . $topic_name }}
+        @endif
     </h1>
     <a href="{{route('new-story-form')}}" class="btn btn-outline-primary mx-3 print-hide">New Story</a>
     <span class="small text-right flex-grow-1 ml-3">Sort by: </span>
