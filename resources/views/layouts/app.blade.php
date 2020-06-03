@@ -57,15 +57,6 @@
         <p class="mb-1">&copy;2020 news.ly</p>
         <ul class="list-inline print-hide">
           <li class="list-inline-item">
-            <a href="#">Privacy Policy</a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">Terms of Use</a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">Support</a>
-          </li>
-          <li class="list-inline-item">
             <a href="/about">About Us</a>
           </li>
         </ul>

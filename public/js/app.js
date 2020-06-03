@@ -145,16 +145,6 @@ function initNewStoryForm(form) {
     checkTopics();
 }
 
-function isValidUrl(string) {
-    try {
-        new URL(string);
-    } catch (_) {
-        return false;
-    }
-
-    return true;
-}
-
 async function initVotingSection(section) {
     const storyId = section.dataset.storyId;
     const upVoteButton = section.querySelector(".upvote");

@@ -114,6 +114,6 @@ class StoryController extends Controller
         Gate::authorize('delete', $story);
 
         $story->delete();
-        redirect(url('/'));
+        return redirect(url('/'));
     }
 }
