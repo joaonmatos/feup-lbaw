@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function sendAjaxRequest(method, url, data, handler) {
@@ -22,7 +22,7 @@ function encodeForAjax(data) {
 async function makeFetch(resource, init = {}) {
     const csrf = document.querySelector('meta[name="csrf-token"]').content;
     if (!init.headers)
-        init.headers = {'X-CSRF-TOKEN': csrf};
+        init.headers = { 'X-CSRF-TOKEN': csrf };
     else
         init.headers['X-CSRF-TOKEN'] = csrf;
     init.credentials = 'same-origin';
@@ -35,14 +35,12 @@ function updateVotes(state, upVoteButton, downVoteButton) {
         upVoteButton.classList.add('text-muted');
         downVoteButton.classList.remove('text-info');
         downVoteButton.classList.add('text-muted');
-    }
-    else if (state.vote == 'true') {
+    } else if (state.vote == 'true') {
         upVoteButton.classList.add('text-success');
         upVoteButton.classList.remove('text-muted');
         downVoteButton.classList.remove('text-info');
         downVoteButton.classList.add('text-muted');
-    }
-    else {
+    } else {
         upVoteButton.classList.remove('text-success');
         upVoteButton.classList.add('text-muted');
         downVoteButton.classList.add('text-info');
@@ -56,8 +54,8 @@ async function initVotingSection(section) {
     const rating = section.querySelector('.rating');
     const downVoteButton = section.querySelector('.downvote');
     const state = {};
-    
-    const response = await makeFetch(`/api/stories/${storyId}/rate`, {method: 'GET'});
+
+    const response = await makeFetch(`/api/stories/${storyId}/rate`, { method: 'GET' });
     console.log(response);
     if (response.status == 200) {
         console.log('123');
@@ -65,13 +63,13 @@ async function initVotingSection(section) {
         state.vote = vote.vote;
         updateVotes(state, upVoteButton, downVoteButton);
     };
-    
-    upVoteButton.addEventListener('click', async () => {
+
+    upVoteButton.addEventListener('click', async() => {
         if (state.vote != 'true') {
             const request = await makeFetch(`/api/stories/${storyId}/rate`, {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({rating: true})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rating: true })
             });
             if (request.status == 200) {
                 const answer = await request.json();
@@ -79,11 +77,10 @@ async function initVotingSection(section) {
                 state.vote = 'true';
                 updateVotes(state, upVoteButton, downVoteButton);
             }
-        }
-        else {
+        } else {
             const request = await makeFetch(`/api/stories/${storyId}/rate`, {
                 method: 'DELETE',
-                headers: {'Content-Type': 'application/json'}
+                headers: { 'Content-Type': 'application/json' }
             });
             if (request.status == 200) {
                 const answer = await request.json();
@@ -94,13 +91,13 @@ async function initVotingSection(section) {
         }
     });
 
-    downVoteButton.addEventListener('click', async () => {
+    downVoteButton.addEventListener('click', async() => {
         if (state.vote != 'false') {
             console.log('clicked downvote with no downvote');
             const request = await makeFetch(`/api/stories/${storyId}/rate`, {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({rating: false})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rating: false })
             });
             console.log(request);
             if (request.status == 200) {
@@ -109,11 +106,10 @@ async function initVotingSection(section) {
                 state.vote = 'false';
                 updateVotes(state, upVoteButton, downVoteButton);
             }
-        }
-        else {
+        } else {
             const request = await makeFetch(`/api/stories/${storyId}/rate`, {
                 method: 'DELETE',
-                headers: {'Content-Type': 'application/json'}
+                headers: { 'Content-Type': 'application/json' }
             });
             if (request.status == 200) {
                 const answer = await request.json();
