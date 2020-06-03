@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbar-content">
         <div class="navbar-nav mr-auto">
-            {{ NavMenu() }}
+            {{-- {{ NavMenu() }} --}}
         </div>
         {{ SearchForm() }}
 
