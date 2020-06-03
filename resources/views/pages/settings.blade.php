@@ -29,9 +29,9 @@
         <div class="col-auto"><a href="{{route('change-password')}}">Edit</a></div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-10"><a href="" data-toggle="modal" data-target="#exampleModal">Delete account</a></div>
-    </div>
+    </div> --}}
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
