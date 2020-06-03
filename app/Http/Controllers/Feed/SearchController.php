@@ -14,9 +14,9 @@ use App\Topic;
 class SearchController extends Controller{
 
       /**
-     * Shows topic's feed
+     * Shows result of a search
      *
-     * @param  $topic
+     * @param  $request ->query 
      * @return Response
      */
     protected function showSearchFeed(Request $request)
