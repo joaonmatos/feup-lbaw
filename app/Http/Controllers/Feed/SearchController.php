@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Feed;
 use App\BelongTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 use App\Story;
 use App\Comment;
@@ -13,21 +14,23 @@ use App\Topic;
 class SearchController extends Controller{
 
       /**
-     * Shows topic's feed
+     * Shows result of a search
      *
-     * @param  $topic
+     * @param  $request ->query 
      * @return Response
      */
-    protected function showSearchFeed($search_query)
+    protected function showSearchFeed(Request $request)
     {
 
-        // TODO: What if topic_id doesn't exist
+        $search_query = $request->query('query');
    
         $stories = Story::select('story_id', 'title', 'author_id', 'username', 'published_date', 'reality_check', 'rating', 'topic_id', 'url')
                     ->join('belong_tos', 'id', '=', 'belong_tos.story_id') 
                     ->join('member', 'author_id', '=', 'member.id')  
-                    ->where('title', 'LIKE', '%'.$search_query.'%')
-                    ->orderBy('rating', 'desc')
+                    ->whereRaw("title @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orWhereRaw("url @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orWhereRaw("username @@ plainto_tsquery('english', ?)", [$search_query])
+                    ->orderByRaw("ts_rank(to_tsvector(title), plainto_tsquery('english', ?)) DESC", [$search_query])
                     ->get();
         
         $topics = array();
@@ -43,6 +46,6 @@ class SearchController extends Controller{
             $comments[$story['story_id']] = $number_comments;
         }   
 
-        return view('pages.feed', ['topic_name' => $search_query, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
+        return view('pages.feed', ['search' => true, 'topic_name' => NULL, 'stories' => $stories, 'topics' => $topics, 'comments' => $comments]);
     }
 }
