@@ -64,6 +64,7 @@ class TopicController extends Controller
     protected function showTopicFeed($topic_name)
     {
         $topic_name = strtolower($topic_name);
+        
         try{
             $topic_id = Topic::select('id')->whereName($topic_name)->get()[0]['id'];
 

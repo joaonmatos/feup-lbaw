@@ -32,6 +32,7 @@ Route::get('/', 'Feed\DefaultController@showDefaultFeed');
 
 // Feeds - Search
 Route::get('/search', 'Feed\SearchController@showSearchFeed')->name('search');
+Route::get('/advanced-search', 'Feed\SearchController@showAdvancedSearchFeed')->name('advanced-search');
 
 // Stories
 Route::get('/stories/{story_id}', 'Story\StoryController@showStoryPage')->name('stories')->where('story_id', '[0-9]+');
